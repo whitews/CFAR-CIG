@@ -403,6 +403,7 @@ ul.icons {
 }
 .navbar .nav .active > a, .navbar .nav .active > a:hover, .navbar .nav .active a > i, .navbar .nav .active a > i:hover {
     background-color: #ffffff;
+    background-image: none !important;
     text-decoration: none;
 }
 .nav-pills > li > a {
