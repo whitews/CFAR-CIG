@@ -19,8 +19,8 @@ import sys
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cfar_cig.settings")
 
 paths = [
-    '/srv/django-projects/cfar_cig',
-    '/srv/django-projects/cfar_cig/cfar_cig'
+    '/srv/django-projects/CFAR-CIG',
+    '/srv/django-projects/CFAR-CIG/cfar_cig'
 ]
 
 for path in paths:
