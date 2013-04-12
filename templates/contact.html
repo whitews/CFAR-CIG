@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("contact-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <div class="span12 home-block hero-block-1">
+          <h1>Contact Us</h1>
+          <hr/>
+          <h3>Janet Staats<br/>
+          <a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">janet.staats@duke.edu</a></h3>
+          <h1>Workshop Location</h1>
+          <hr/>
+          <h2>Beard Conference Room<br/>
+          Surgical Oncology Research Facility (SORF) Building<br/>
+          Duke University Medical Center</h2>
+
+          <iframe width="940" height="640" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=duke+surgical+oncology+research+facility&amp;aq=0&amp;ie=UTF8&amp;hl=en&amp;hq=&amp;hnear=Surgical+Oncology+Research+Facility,+Durham,+North+Carolina+27710&amp;ll=36.00619,-78.943552&amp;spn=0.008106,0.010353&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?q=duke+surgical+oncology+research+facility&amp;aq=0&amp;ie=UTF8&amp;hl=en&amp;hq=&amp;hnear=Surgical+Oncology+Research+Facility,+Durham,+North+Carolina+27710&amp;ll=36.00619,-78.943552&amp;spn=0.008106,0.010353&amp;t=m&amp;z=14&amp;iwloc=A&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endblock %}

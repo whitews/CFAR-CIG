@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("agenda-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <div class="span12 home-block hero-block-1">
+          <h1>Friday, May 10th - Day 5</h1>
+          <hr/>
+
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td>
+                  <h2>8:15 - 8:30</h2>
+                </td>
+                <td>
+                  <h2>Breakfast - provided by BD Biosciences</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>8:30 - 9:30</h2>
+                </td>
+                <td>
+                  <h2>LECTURE: Panel design, Reagent qualifications, and Panel Modification</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>9:30 - 12:00</h2>
+                </td>
+                <td>
+                  <h2>LAB 16: ICS Analysis - Using Data Acquired on Wednesday</h2>
+                  <h2>LAB 17: Analyze titration data files to generate titration curves & SO Profiles</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>12:00 - 1:00</h2>
+                </td>
+                <td>
+                  <h2>WORKING LUNCH - provided by BD Biosciences</h2>
+                  <h2>Review Polyfunctional analysis using SPICE software</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>1:00 - 5:00</h2>
+                </td>
+                <td>
+                  <h2>LAB 18: Continuation of data analysis</h2>
+                  <h2>Q & A</h2>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("register-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+            <div class="span12">
+                <div class="row">
+                    <!-- HERO BLOCK 1 -->
+                    <div class="span6 home-block hero-block-1">
+                        <h1>Registration Materials</h1>
+                        <hr/>
+                        <h2>Registration Form</h2>
+                        <p>Complete the registration form and email to <a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">Janet Staats</a>.</p>
+                        <p><a href="{{ STATIC_URL }}workshop_materials/CFARWS_2013_regform.docx"><i class="icon-download-alt icon-large"></i>Download</a></p>
+                        <hr/>
+                        <h2>Waiver</h2>
+                        <p>Download and sign the waiver. Email signed waiver to <a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">Janet Staats</a>.</p>
+                        <p><a href="{{ STATIC_URL }}workshop_materials/SORF Building Waiver.pdf"><i class="icon-download-alt icon-large"></i>Download</a></p>
+                        <hr/>
+                        <h2>Standard Operating Procedures</h2>
+                        <p>Download the SOPS. Make sure you have read and understand each procedure before signing. Return all signed SOPS the waiver. Email signed waiver to <a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">Janet Staats</a>.</p>
+                        <p><a href="{{ STATIC_URL }}workshop_materials/SOPs.zip"><i class="icon-download-alt icon-large"></i>Download</a></p>
+                        <hr/>
+                        <h2>Pre-Registration FCS Files</h2>
+                        <p>Download the pre-registration FCS files. These must be analyzed and <b>the results must be submitted prior to the workshop</b>. Upload the results to the DropBox account <a href="http://www.dropbox.com">Some DropBox account</a>.</p>
+                        <p><a href="{{ STATIC_URL }}workshop_materials/Pre-Workshop_FCS.zip"><i class="icon-download-alt icon-large"></i>Download</a></p>
+                        <hr/>
+                        <h2>Agenda</h2>
+                        <p>Download a PDF of the 5-day agenda or see each day's schedule by following the links below.</p>
+
+                        <p><a href="{{ STATIC_URL }}workshop_materials/CFAR Training Agenda 2013.pdf"><i class="icon-download-alt icon-large"></i>Download</a></p>
+                       
+                        <p>
+                            <a href="{% url 'day_1' %}">Day 1</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'day_2' %}">Day 2</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'day_3' %}">Day 3</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'day_4' %}">Day 4</a>
+                        </p>
+                        <p>
+                            <a href="{% url 'day_5' %}">Day 5</a>
+                        </p>
+
+                    </div>
+                    <!-- SPACER BETWEEN HERO BLOCK 1 AND HERO BLOCK 2 -->
+                    <div class="span1">
+                    </div>
+                    <!-- HERO BLOCK 2 -->
+                    <div class="span5 home-block">
+                        <div class="grey-box hero-block-2">
+                            <h2>You Must Pre-Register</h2>
+                            <p>
+                              Make sure you sign all the waivers and complete all the pre-registration assays.
+                                These must submitted prior to the workshop!
+                            </p>
+                            <p>
+                              Email all signed documents to Janet Staats at:
+                            </p>
+                            <p>
+                                <a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">janet.staats@duke.edu</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+{% endblock %}
