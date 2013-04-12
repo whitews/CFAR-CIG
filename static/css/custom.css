@@ -391,8 +391,8 @@ ul.icons {
     background-image: none !important;
 }
 .nav-select {
-        width: 100%;
-    }
+    width: 100%;
+}
 .navbar-inner {
     background: #ffffff none repeat-x;
     border-radius: 0 0 0 0;
@@ -402,6 +402,11 @@ ul.icons {
     padding-right: 20px;
 }
 .navbar .nav .active > a, .navbar .nav .active > a:hover, .navbar .nav .active a > i, .navbar .nav .active a > i:hover {
+    background-color: #ffffff;
+    background-image: none !important;
+    text-decoration: none;
+}
+.navbar .navbar-inner .container {
     background-color: #ffffff;
     background-image: none !important;
     text-decoration: none;
@@ -499,26 +504,26 @@ ul.icons {
     border-color: #999999;
     color: #333333;
 }
-.navbar-inner .in {
-    margin-top: 20px;
-}
-.navbar .navbar-inner .in .nav-pills {
-    z-index: 9999;
-    background-color: #333333;
-}
-.navbar .navbar-inner .in li {
-    border-right: none;
-    text-align: left;
-}
-.navbar .navbar-inner .in li a {
-    color: #ffffff;
-}
-.navbar .navbar-inner .in li a i {
-    display: none;
-}
-.navbar .navbar-inner .in li.active a {
-    background-color: #333333;
-}
+/*.navbar-inner .in {*/
+    /*margin-top: 20px;*/
+/*}*/
+/*.navbar .navbar-inner .in .nav-pills {*/
+    /*z-index: 9999;*/
+    /*background-color: #333333;*/
+/*}*/
+/*.navbar .navbar-inner .in li {*/
+    /*border-right: none;*/
+    /*text-align: left;*/
+/*}*/
+/*.navbar .navbar-inner .in li a {*/
+    /*color: #ffffff;*/
+/*}*/
+/*.navbar .navbar-inner .in li a i {*/
+    /*display: none;*/
+/*}*/
+/*.navbar .navbar-inner .in li.active a {*/
+    /*background-color: #333333;*/
+/*}*/
 .navbar .nav .active > a, .navbar .nav li:hover > a {
     padding-top: 12px;
 }
@@ -534,7 +539,6 @@ ul.icons {
     border: none;
     padding: 8px 10px 11px;
 }
-
 input.btn {
     float: left;
     margin-left: 20px;
