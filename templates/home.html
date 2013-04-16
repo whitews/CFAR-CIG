@@ -2,7 +2,7 @@
 {% load url from future %}
 
 {% block body %}
-<script>
+<script xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
     document.getElementById("home-nav").className += " active";
 </script>
     <div>
@@ -11,20 +11,33 @@
     <div class="row main-block">
       <div class="span12">
         <div class="row">
-          <div class="span6 home-block hero-block-1">
-            <h1>We Need Some Text Here!</h1>
-            <h2>Something else to go here</h2>
+          <div class="span7 home-block hero-block-1">
+            <h1>Workshop Overview</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
+              The Duke CFAR Flow Cytometry Workshop is an intensive week-long
+              wet-workshop that includes lectures focusing on qualifying and
+              standardizing instruments and reagents.
             </p>
-          </div>
-          <!-- SPACER  -->
-          <div class="span1">
+            <p>
+              No previous flow cytometry experience is required; however, the benefits
+              of attending the Workshop will be much greater with at least some basic
+              working knowledge about flow cytometry.
+            </p>
+            <p>
+              The goal of the workshop is two-fold:
+              <ol>
+                <li>
+                  Participants will be able to
+                  go home and perform the advanced 11-color ICS assay illustrated during the
+                  Workshop
+                </li>
+                <li>
+                  Participants will be able to apply the basic principles
+                  reviewed during the Workshop to modify the 11-color ICS assay to suite
+                  their laboratory needs.
+                </li>
+              </ol>
+            </p>
           </div>
           <!-- MAIN CONTENT AREA: BLOCK 2 -->
           <div class="span5 home-block">
@@ -33,6 +46,10 @@
               <p>
                 Make sure you sign all the waivers and complete all the pre-registration assays.
                 These must submitted prior to the workshop!
+              </p>
+              <p>
+                The cost per participant is around $1000; however, thanks to our Workshop
+                Sponsors there is <b>no cost for participants to attend the Workshop</b>.
               </p>
               <a href="{% url 'register' %}" class="btn btn-warning">Register Here</a>
             </div>

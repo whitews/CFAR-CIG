@@ -579,8 +579,13 @@ input.btn {
     margin-bottom: 10px;
 }
 .home-block p {
-    line-height: 22px;
-    padding: 0;
+    line-height: 18px;
+    padding: 3px;
+    color: #898989;
+}
+.home-block ol {
+    line-height: 18px;
+    padding: 3px;
     color: #898989;
 }
 .home-block {
