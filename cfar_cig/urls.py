@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^agenda/3$', TemplateView.as_view(template_name="day_3.html"), name='day_3'),
     url(r'^agenda/4$', TemplateView.as_view(template_name="day_4.html"), name='day_4'),
     url(r'^agenda/5$', TemplateView.as_view(template_name="day_5.html"), name='day_5'),
-    url(r'^references', TemplateView.as_view(template_name="references.html"), name='references'),
+    url(r'^links', TemplateView.as_view(template_name="links.html"), name='links'),
     url(r'^hotels$', TemplateView.as_view(template_name="hotels.html"), name='hotels'),
     url(r'^contact', TemplateView.as_view(template_name="contact.html"), name='contact'),
 
