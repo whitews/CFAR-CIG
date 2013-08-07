@@ -1,28 +1,33 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
-
+# Main site
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', TemplateView.as_view(template_name="home.html"), name='home'),
-    url(r'^register$', TemplateView.as_view(template_name="register.html"), name='register'),
-    url(r'^agenda/1$', TemplateView.as_view(template_name="day_1.html"), name='day_1'),
-    url(r'^agenda/2$', TemplateView.as_view(template_name="day_2.html"), name='day_2'),
-    url(r'^agenda/3$', TemplateView.as_view(template_name="day_3.html"), name='day_3'),
-    url(r'^agenda/4$', TemplateView.as_view(template_name="day_4.html"), name='day_4'),
-    url(r'^agenda/5$', TemplateView.as_view(template_name="day_5.html"), name='day_5'),
-    url(r'^links', TemplateView.as_view(template_name="links.html"), name='links'),
-    url(r'^hotels$', TemplateView.as_view(template_name="hotels.html"), name='hotels'),
-    url(r'^contact', TemplateView.as_view(template_name="contact.html"), name='contact'),
+)
 
-    # url(r'^cfar_cig/', include('cfar_cig.foo.urls')),
+# 2013 Duke Flow Cytometry Workshop
+urlpatterns += patterns('',
+    url(r'^workshops/2013/DukeFlow/$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/overview.html"), name='2013_Duke_FC_overview'),
+    url(r'^workshops/2013/DukeFlow/register$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/register.html"), name='2013_Duke_FC_register'),
+    url(r'^workshops/2013/DukeFlow/agenda/1$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/day_1.html"), name='2013_Duke_FC_day_1'),
+    url(r'^workshops/2013/DukeFlow/agenda/2$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/day_2.html"), name='2013_Duke_FC_day_2'),
+    url(r'^workshops/2013/DukeFlow/agenda/3$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/day_3.html"), name='2013_Duke_FC_day_3'),
+    url(r'^workshops/2013/DukeFlow/agenda/4$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/day_4.html"), name='2013_Duke_FC_day_4'),
+    url(r'^workshops/2013/DukeFlow/agenda/5$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/day_5.html"), name='2013_Duke_FC_day_5'),
+    url(r'^workshops/2013/DukeFlow/links', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/links.html"), name='2013_Duke_FC_links'),
+    url(r'^workshops/2013/DukeFlow/hotels$', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/hotels.html"), name='2013_Duke_FC_hotels'),
+    url(r'^workshops/2013/DukeFlow/contact', TemplateView.as_view(template_name="2013_Workshop_Duke_FlowCytometry/contact.html"), name='2013_Duke_FC_contact'),
+)
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+# 2013 Duke R Workshop
+urlpatterns += patterns('',
+    url(r'^workshops/2013/DukeR/$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/overview.html"), name='2013_Duke_R_overview'),
+    url(r'^workshops/2013/DukeR/register$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/register.html"), name='2013_Duke_R_register'),
+    url(r'^workshops/2013/DukeR/agenda/1$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_1_day_1.html"), name='2013_Duke_R_week_1_day_1'),
+    url(r'^workshops/2013/DukeR/agenda/2$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_1_day_2.html"), name='2013_Duke_R_week_1_day_2'),
+    url(r'^workshops/2013/DukeR/agenda/3$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_2_day_1.html"), name='2013_Duke_R_week_2_day_1'),
+    url(r'^workshops/2013/DukeR/agenda/4$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_2_day_2.html"), name='2013_Duke_R_week_2_day_2'),
+    url(r'^workshops/2013/DukeR/links', TemplateView.as_view(template_name="2013_Workshop_Duke_R/links.html"), name='2013_Duke_R_links'),
+    url(r'^workshops/2013/DukeR/contact', TemplateView.as_view(template_name="2013_Workshop_Duke_R/contact.html"), name='2013_Duke_R_contact'),
 )

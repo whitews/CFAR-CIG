@@ -2,16 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{ header_title }}</title>
+    <title>CFAR-CIG</title>
     <meta charset="utf-8">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,600,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/custom.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/color_scheme.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.min.css" />
-    {% block extra_head %}
-
-    {% endblock %}
+    {% block extra_head %}{% endblock %}
   </head>
   <body>
     <div class="top_line">
@@ -24,142 +22,12 @@
         </div>
         <div class="span8 pull-right">
           <p class="header_subtext pull-right">
-            2013 Duke CFAR Flow Cytometry Workshop
+            {% block workshop_title %}{% endblock %}
           </p>
         </div>
       </div>
     </div>
-    <!-- NAV START -->
-    <div class="container">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <div class="nav-collapse">
-                        <ul class="nav nav-pills">
-                            <li id="home-nav" class="single"><a href="{% url 'home' %}">HOME<i></i></a>
-                            </li>
-                            <li id="register-nav" class="single"><a href="{% url 'register' %}">DOWNLOADS<i></i></a>
-                            <li id="agenda-nav" class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">AGENDA<i></i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'day_1' %}">DAY 1</a></li>
-                                    <li><a href="{% url 'day_2' %}">DAY 2</a></li>
-                                    <li><a href="{% url 'day_3' %}">DAY 3</a></li>
-                                    <li><a href="{% url 'day_4' %}">DAY 4</a></li>
-                                    <li><a href="{% url 'day_5' %}">DAY 5</a></li>
-                                </ul>
-                            </li>
-                            <li id="links-nav" class="single"><a href="{% url 'links' %}">LINKS<i></i></a>
-                            <li id="hotels-nav" class="single"><a href="{% url 'hotels' %}">HOTELS & RESTAURANTS<i></i></a>
-                            <li id="contact-nav" class="single"><a href="{% url 'contact' %}">CONTACT<i></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- BODY -->
-    <div class="main-content">
-      <div class="container">
-    {% block body %}
-    {% endblock %}
-        <!-- SPONSOR LOGO BAR -->
-        <div class="main-block sponsors">
-            <div class="title-wrapper">
-                <h2>Sponsors</h2>
-            </div>
-            <div class="row show-grid">
-                <div class="span12">
-                    <div id="sponsors" class="row show-grid">
-                        <div class="span2 clear-both">
-                            <a href="http://www.niaid.nih.gov/labsandresources/resources/cfar/Pages/default.aspx"><img alt="" src="{{ STATIC_URL }}img/cfar_logo.jpg" /></a>
-                        </div>
-                        <div class="span2">
-                            <a href="http://www.bd.com/"><img alt="" src="{{ STATIC_URL }}img/bd-logo.gif" /></a>
-                        </div>
-                        <div class="span2">
-                            <a href="https://www.beckmancoulter.com"><img alt="" src="{{ STATIC_URL }}img/bc_logo.png" /></a>
-                        </div>
-                        <div class="span2">
-                            <a href="http://www.cancerresearch.org/cic"><img alt="" src="{{ STATIC_URL }}img/cic_logo.gif" /></a>
-                        </div>
-                        <div class="span2">
-                            <a href="http://eqapol.dhvi.duke.edu/"><img alt="" src="{{ STATIC_URL }}img/eqapol_logo.png" /></a>
-                        </div>
-                        <div class="span2">
-                            <a href="http://zellnet.com/"><img alt="" src="{{ STATIC_URL }}img/zellnet_logo.jpg" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- END BODY -->
-<!-- FOOTER STARTS HERE -->
-    <div class="top-footer-border">
-      <div class="container"></div>
-    </div>
-    </div>
-    <div class="footer-top"></div>
-    <div class="footer-wrapper">
-      <div class="container">
-        <div class="row show-grid">
-          <div class="span12">
-            <div class="row show-grid">
-<!-- FOOTER: ADDRESS -->
-              <div class="span4">
-                <h4 class="center-title">Contact Us</h4>
-                <address class="address">
-                  <p><i class="icon-map-marker icon-large"></i>Beard Conference Room</p>
-                  <p><i>&nbsp;</i>Surgical Oncology Research Facility</p>
-                  <p><i>&nbsp;</i>Duke University Medical Center</p>
-                  <p>&nbsp;</p>
-                  <p><i class="icon-envelope icon-large"></i><a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">janet.staats@duke.edu</a></p>
-                </address>
-              </div>
-<!-- FOOTER: ABOUT US -->
-              <div class="span4 footer-center">
-                <h4 class="center-title">About</h4>
-                <p>
-                  The Duke CFAR Flow Cytometry Workshop is an intensive week-long wet-workshop that includes
-                  lectures focusing on qualifying and standardizing instruments and reagents.
-                </p>
-              </div>
-<!-- FOOTER: NAVIGATION LINKS -->
-              <div class="span4 footer-right">
-                <h4 class="center-title">Navigate</h4>
-                <ul class="footer-navigate">
-                  <li>
-                    <a href="{% url 'home' %}">Home</a>
-                  </li>
-                  <li>
-                    <a href="{% url 'register' %}">Register</a>
-                  </li>
-                  <li>
-                    <a href="{% url 'day_1' %}">Agenda</a>
-                  </li>
-                  <li>
-                    <a href="{% url 'contact' %}">Contact</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row show-grid">
-<!-- FOOTER: COPYRIGHT TEXT -->
-          <div class="span12">
-            <p class="text-center">&copy; 2013 <a href="http://www.duke.edu">Duke University</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-<!-- END FOOTER -->
+    {% block workshop_base %}{% endblock %}
 <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>

@@ -1,0 +1,37 @@
+{% extends "2013_Workshop_Duke_R/workshop_base.html" %}
+{% load url from future %}
+
+{% block body %}
+<script xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    document.getElementById("home-nav").className += " active";
+</script>
+    <div>
+      <img alt="" src="{{ STATIC_URL }}img/2013_Duke_R/hero.png" />
+    </div>
+    <div class="row main-block">
+      <div class="span12">
+        <div class="row">
+          <div class="span7 home-block hero-block-1">
+            <h1>Workshop Overview</h1>
+            <p>
+
+              Prior to the workshop, please install <a href="http://www.r-project.org">R version 3.0.1</a>
+              as well as <a href="http://rstudio.com">RStudio version 0.97.551</a>.
+
+            </p>
+          </div>
+          <!-- MAIN CONTENT AREA: BLOCK 2 -->
+          <div class="span5 home-block">
+            <div class="grey-box hero-block-2">
+              <h2><a href="{% url '2013_Duke_R_register' %}">You Must Pre-Register</a></h2>
+                <p>
+                  Email us to register for the workshops:
+                </p>
+              <a href="mailto:darongsae.kwon@duke.edu?Subject=2013%20R Workshop%20Registration" class="btn btn-warning">Sign Up!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+{% endblock %}
