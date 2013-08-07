@@ -1,0 +1,61 @@
+{% extends "2013_Workshop_Duke_FlowCytometry/workshop_base.html" %}
+{% load url from future %}
+
+{% block body %}
+<script xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    document.getElementById("home-nav").className += " active";
+</script>
+    <div>
+      <img alt="" src="{{ STATIC_URL }}img/2013_Duke_FlowCytometry/hero.png" />
+    </div>
+    <div class="row main-block">
+      <div class="span12">
+        <div class="row">
+          <div class="span7 home-block hero-block-1">
+            <h1>Workshop Overview</h1>
+            <p>
+              The Duke CFAR Flow Cytometry Workshop is an intensive week-long
+              wet-workshop that includes lectures focusing on qualifying and
+              standardizing instruments and reagents.
+            </p>
+            <p>
+              No previous flow cytometry experience is required; however, the benefits
+              of attending the Workshop will be much greater with at least some basic
+              working knowledge about flow cytometry.
+            </p>
+            <p>
+              The goal of the workshop is two-fold:
+              <ol>
+                <li>
+                  Participants will be able to
+                  go home and perform the advanced 11-color ICS assay illustrated during the
+                  Workshop
+                </li>
+                <li>
+                  Participants will be able to apply the basic principles
+                  reviewed during the Workshop to modify the 11-color ICS assay to suite
+                  their laboratory needs.
+                </li>
+              </ol>
+            </p>
+          </div>
+          <!-- MAIN CONTENT AREA: BLOCK 2 -->
+          <div class="span5 home-block">
+            <div class="grey-box hero-block-2">
+              <h2><a href="{% url '2013_Duke_FC_register' %}">You Must Pre-Register</a></h2>
+              <p>
+                Make sure you sign all the waivers and complete all the pre-registration assays.
+                These must submitted prior to the workshop!
+              </p>
+              <p>
+                The cost per participant is around $1000; however, thanks to our Workshop
+                Sponsors there is <b>no cost for participants to attend the Workshop</b>.
+              </p>
+              <a href="{% url '2013_Duke_FC_register' %}" class="btn btn-warning">Register Here</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+{% endblock %}

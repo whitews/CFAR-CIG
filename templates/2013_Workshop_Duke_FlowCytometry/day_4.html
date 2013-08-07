@@ -1,0 +1,95 @@
+{% extends "2013_Workshop_Duke_FlowCytometry/workshop_base.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("agenda-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <div class="span12 home-block hero-block-1">
+          <h1>Thursday, May 9th - Day 4</h1>
+          <hr/>
+
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td>
+                  <h2>8:15 - 8:30</h2>
+                </td>
+                <td>
+                  <h2>Breakfast - provided by BD Biosciences</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>8:30 - 10:00</h2>
+                </td>
+                <td>
+                  <h2>LECTURE: Compensation & Analysis</h2>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/CFAR_WS_DataAnalysis.pptx"><i
+                      class="icon-download-alt icon-large"></i>Slides</a>
+                  </p>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/Data Analysis.zip">
+                      <i class="icon-download-alt icon-large"></i>Materials
+                    </a>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>10:00 - 12:00</h2>
+                </td>
+                <td>
+                  <h2>LAB 14: ICS Compensation & Analysis- Using Data Acquired on Wednesday</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>12:00 - 1:00</h2>
+                </td>
+                <td>
+                  <h2>WORKING LUNCH - provided by BD Biosciences</h2>
+                  <h2>RESULTS: Data standards (Scott White, Duke)</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>1:00 - 2:00</h2>
+                </td>
+                <td>
+                  <h2>LECTURE: Proficiency Testing (Dr. Sylvia Janetski, CVC)</h2>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/Janetzki-Duke2013.pptx"><i
+                      class="icon-download-alt icon-large"></i>Slides</a>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>2:00 - 3:00</h2>
+                <td>
+                  <h2>LECTURE: New Tools for Analysis (Dr. Cliburn Chan, Duke)</h2>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/Chan_Data analysis for ICS workshop 2013.pptx"><i
+                      class="icon-download-alt icon-large"></i>Slides</a>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>3:00 - 6:00</h2>
+                <td>
+                  <h2>LAB 15: ICS Analysis - Using Data Acquired on Wednesday</h2>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endblock %}
