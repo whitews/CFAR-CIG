@@ -23,7 +23,6 @@ urlpatterns += patterns('',
 # 2013 Duke R Workshop
 urlpatterns += patterns('',
     url(r'^workshops/2013/DukeR/$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/overview.html"), name='2013_Duke_R_overview'),
-    url(r'^workshops/2013/DukeR/register$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/register.html"), name='2013_Duke_R_register'),
     url(r'^workshops/2013/DukeR/agenda/1$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_1_day_1.html"), name='2013_Duke_R_week_1_day_1'),
     url(r'^workshops/2013/DukeR/agenda/2$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_1_day_2.html"), name='2013_Duke_R_week_1_day_2'),
     url(r'^workshops/2013/DukeR/agenda/3$', TemplateView.as_view(template_name="2013_Workshop_Duke_R/week_2_day_1.html"), name='2013_Duke_R_week_2_day_1'),
