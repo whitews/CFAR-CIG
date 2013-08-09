@@ -320,6 +320,10 @@ p {
     line-height: 18px;
     padding: 0 0 20px;
 }
+p.medium {
+    font-size: 13px;
+}
+
 sup {
     padding-left: 1px;
     top: -0.3em;
