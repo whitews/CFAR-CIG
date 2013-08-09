@@ -1,0 +1,73 @@
+Tour of RStudio
+========================================
+
+Web references
+--------------------------------------------------------
+
+* [R manuals](http://cran.r-project.org/manuals.html)
+* [RStudio docs](http://www.rstudio.com/ide/docs/)
+* [R search engine](http://www.rseek.org/)
+
+Installation
+----------------------------------------
+
+Follow instructions at http://www.rstudio.com/ide/download/desktop, making sure to install R first from http://cran.rstudio.com/.
+
+Anatomy of RStudio
+----------------------------------------
+
+### Menu
+* File
+    * Create, open and save R scripts
+* Session
+    * Change the current working directory if you are not where you expect to be
+* Project
+    * Create or open R projects
+* Tools
+    * Load data sets and install new R packages
+
+### Panels
+* Editor
+* Console
+    * Prompt (>)
+    * Getting help with (?) or help()
+```{r}
+help(seq) # shortcut is ?seq
+```
+    
+    * Searching by keywords (??) or help.search()
+
+```{r}
+help.search("chisquare") # shortcut is ??chisquare
+```
+    * Tab completion - e.g. seq()
+    * History with up and down arrows
+    * History completion with C-up
+    * Incomplete commands show up as (+)
+    * Escaping from '+' prompt with ESC key
+* Workspace | History
+    * Workspace shows user-defined variables that R currently knows about
+    * History shows previous commands
+        * Re-running a command with "To Console" (or Enter)
+        * Assembling a script with "To Source" (or Shift-Enter)
+* Files | Plots | Packages | Help
+    * Files shows the contents of the current working directory
+    * Plots
+        * Export
+    * Packages manages the installed code base
+    * Help provides hyperlinked documentation
+        * Search text box
+        * Drop down menu for Help history
+        * Forward and Back buttons
+
+
+Exercises
+----------------------------------------
+
+* Create a new project called RWS1
+* Install the knitr and plyr packages
+* Get help on the seq() function and use it to generate the sequence 2.0, 2.5, 3.0, 3.5 4.0
+* Find help for all the R functions that contain the string "seq"
+* Create a new R script in the Editor by using File | New
+* Use the History panel and "To Source" to send the sequence generation command to the newly created R script
+* Run the command by clicking on the "Source" button in the Editor panel
