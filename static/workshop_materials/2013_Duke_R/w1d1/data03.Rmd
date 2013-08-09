@@ -1,0 +1,188 @@
+Data structures in R
+===================
+
+The most useful data structures are the vector, list and data frame.
+
+Vectors
+---------
+
+We have already seen vectors. Here are some basic things you can do with vectors.
+
+```{r}
+x <- 1:10 # create a numeric vector using the colon from:to operator
+x
+x[5:8] # extract a subset
+x[length(x)] # drop the last value
+x[x%%2==0] # find even elements
+x + 10 # add a scalar to a vector - note "recycling"
+x + c(10,20) # more recyling
+rep(1:3, 3) # repetition
+rep(1:3, each=3) # more repetition
+```
+
+The elements of vectors can have names, but that is not so common.
+```{r}
+x <- 1:10
+names(x)
+names(x) <- letters[1:10] 
+names(x)
+x[3] # we can retrive by index
+x["c"] # or by name
+```
+
+Lists
+------
+
+We have also encountered lists, disguised as arguments to functions. Lists are collectios of key:value pairs. Here's how to manipulate lists.
+```{r lists}
+# lists can combine differnt types of data
+jack <- list(name="Jack", age=12)
+jack
+
+# Extract list components with '$'
+jack$name
+jack$age
+
+# Other ways of extracting components (double brackets)
+jack[["name"]]
+jack[[1]]
+
+# Extract sublist (single brackets)
+jack[1:2]
+
+# structure of a list
+str(jack)
+```
+
+Data frame
+----------
+
+But the most important data structure for analysis is undoubtedly the data frame. 
+
+```{r data.frame}
+# A data frame is basically a list used to represent a 'table' of different data types
+df <- data.frame(list(names=c("Jack", "Jill"), values=c(10,12), gender=c('M', 'F')))
+df
+# You can extract extract data.frame components in the same way as a list
+df$values
+
+# R provide many example data sets as data.frame structures - e.g. motorcars data set
+head(mtcars)
+```
+
+As we will see in the following case study and exercise, laboratory data is nearly always analyzed as a data frame in R.
+
+Case study
+-----------
+
+We have an Excel spreadsheet with some HIV/AIDS statistics from http://exploringdata.net/datasets.htm, and want to analyze the data in R. This is the story of the dataaset:
+
+```
+Story: AIDS and HIV Infections
+
+This dataset contains the global estimate of cumulative AIDS and HIV cases worldwide, since 1980. One question that could be asked is if there is any slowing in the rate at which HIV and AIDS cases are occuring. Even after the data is transformed using logarithms there is still a strong upward trend in the residuals. Finding a model that fits the data may require looking more sophisticated functions than the usual exponential and polynomial functions. It would also be worth finding the number of new cases every year and modelling that growth. The relationship between the number of new HIV and AIDS cases might well be worth exploring. A dataset with rich potential.
+
+Variables:
+
+Year: year
+HIV: Cumulative HIV infection (millions)
+AIDS: Cumulative AIDS cases (millions)
+Source: Compiled by Worldwatch Institute from: Global AIDS Policy Coalition, Harvard School of Public Health Boston, MA, discussion with author, 24 January 1997.
+```
+
+First, we must convert the spreadsheet into a simple format that R can import. We will choose to export to CSV (comma separated values).
+
+Now we can read the CSV file into an R data frame
+
+```{r}
+aids <- read.csv("Duke2013A/aids.csv", header=TRUE)
+```
+
+Let's examine the imported data
+```{r}
+names(aids)
+dim(aids)
+head(aids)
+tail(aids)
+str(aids)
+summary(aids)
+```
+
+Note that we can extract each column of variables by name - the result is just a vector.
+```{r}
+aids$HIV
+```
+
+The names of variables are rather cumbersome. Let's shorten them.
+```{r}
+names(aids) <- c("Year", "HIV", "AIDS")
+names(aids)
+```
+
+Often we want to deal with only a subset of the data. This is often done by relational filtering:
+```{r}
+aids.90s <- aids[aids$Year >= 1990,]
+aids.90s
+```
+
+We can also grow the data set by adding variables. Suppose we were interested in the ratio of AIDS to HIV cases for each year.
+```{r}
+aids$Ratio <- aids$AIDS / aids$HIV
+head(aids)
+```
+
+It is also good to get into the habit of visualizing your data.
+```{r}
+plot(aids$Year, aids$HIV)
+```
+
+The plot looks rather ugly. Let's spruce it up a bit:
+```{r}
+plot(aids$Year, aids$HIV, type="o", col="red",
+     main="Incidence of HIV", xlab="Year", ylab="counts (milliions)")
+```
+
+Wonder if we can fit a line to the data? Let's see if the AIDS growth curve is linear.
+
+```{r}
+fit1 <- lm(aids$HIV ~ aids$Year)
+plot(aids$Year, aids$HIV, col="blue",
+     main="Incidence of HIV", xlab="Year", ylab="counts (milliions)")
+abline(fit1, col="red")
+```
+
+That didn't work too well - let's try a quadratic fit.
+```{r}
+fit2 <- lm(aids$HIV ~ poly(aids$Year, 2))
+plot(aids$Year, aids$HIV, col="blue",
+     main="Incidence of HIV", xlab="Year", ylab="counts (milliions)")
+lines(aids$Year, predict(fit2, data.frame(x=aids$Year)), col="red")
+```
+
+The fit is OK but not great since the residuals are definitely non-random. The data can be modeled and analyzed using nonlinear regression but that is outside the scope of this workshop.
+
+Exercise
+--------
+
+Explore the relationship between smoking and cancer.
+
+```
+Story: Smoking and Cancer
+
+Government statisticians in England conducted a study of the relationship between smoking and lung cancer. The data concern 25 occupational groups and are condensed from data on thousands of individual men. The explanatory variable is the number of cigarettes smoked per day by men in each occupation relative to the number smoked by all men of the same age. This smoking ratio is 100 if men in an occupation are exactly average in their smoking, it is below 100 if they smoke less than average, and above 100 if they smoke more than average. The response variable is the standardized mortality ratio for deaths from lung cancer. It is also measured relative to the entire population of men of the same ages as those studied, and is greater or less than 100 when there are more or fewer deaths from lung cancer than would be expected based on the experience of all English men.
+
+Variable Names:
+
+Occupation: occupation of the subjects
+Smoke Index: relative ranking of amount of smoking, with 100 being average.
+Cancer Index: relative ranking of deaths due to lung cancer, with 100 being average.
+```
+
+* Convert the Excel spreadsheet to a CSV file.
+* Load the CSV file into Excel and store it in the variable ```smoke```.
+* What are the occupations where the smoke index is greater than 100?
+* Calculate the correlation between the smoke and cancer indices.
+* Plot a scatter plot of the smoke and cancer indices.
+* Fit a simple linear regression model to the data.
+* Plot the predicted values of the model fit.
+
