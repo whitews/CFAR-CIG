@@ -1,0 +1,106 @@
+Using the R console as a calculator
+========================================
+
+* Some R data types
+    * Use the `class()` function to show the data type
+    * numeric
+    * logical
+    * character
+    * vectors
+    
+```{r data types}
+# numeric
+class(1)
+class(pi)
+
+# complex
+class(3+4i)
+
+# logical
+class(TRUE)
+class(T)
+class(FALSE)
+class(F)
+
+# character
+class("R is cool!")
+
+# vectors
+xs <- c(1, pi, 3+4i)
+class(xs)
+
+# dates
+Sys.Date() # today
+
+# working with strings
+help(cat)
+cat("Hello, world")
+dates <- seq.Date(Sys.Date(), by=7, length.out=4)
+
+# suppose you want to create a set of filenames with a date in the filename
+help(paste)
+paste("experiment-", dates, ".fcs", sep="")
+```
+      
+* Variables and the assignment operator
+
+```{r assignment}
+# we "store" stuff for later use with the <- assignment operator
+a <- 3
+b <- 7
+a*b
+
+# variable names can include '.'
+this.is.a.long.name <- a*b
+this.is.a.long.name
+```
+
+* Type `??operators` in the console and explore the use of Arithmetic, Colon, Relational and Logical operators
+```{r operators}
+# Arithmetic
+5+(2*3)^7
+5 %% 2 # modulus operator - remainder after division
+
+# Logical
+TRUE && FALSE # logical AND
+TRUE || FALSE # logical OR
+!TRUE # negation
+
+# Relational
+3 < 4
+3 > 4
+3 == 4
+3!= 4
+
+# Colon (from:to)
+10:20
+
+# a generalization of the from:to colon operator is the seq() function
+seq(20, 2, by=-2)
+seq(10, by=1, length.out=5)
+seq(0, 2*pi, pi/4)
+```
+
+* Type `?Trig` to see what trigonometric functions are available
+* Type ?`?log` to see how to do logarithms and exponentials.
+
+A simple example combining trig and exponential functions tests Euler's famous formula $e^{i\theta} = cos(\theta) + i \sin(\theta$
+```{r trig transcendentals}
+theta <- seq(0, 2*pi, pi/4)
+exp(theta*1i) == cos(theta) + 1i*sin(theta)
+```
+
+* Type `demo(graphics)` to see some of R's basic graphics capabilities
+```{r graphics}
+demo(graphics)
+```
+
+
+
+Exercises
+----------------------------------------
+
+* Use the combine `c()` function to make a vector of the numbers 23, 47, 99, and find the mean, median and variance of those numbers. Remember to assign the vector to a variable.
+* Create a vector from 0 to 2\\( \pi \\) of length 100 and assign to a variable \\( x \\)
+* Plot sin(x)
+* Customize the plot into a smooth red line instead of dots
