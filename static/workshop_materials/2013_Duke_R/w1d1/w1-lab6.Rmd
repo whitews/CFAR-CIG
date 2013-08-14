@@ -1,0 +1,93 @@
+Lab 6: Reproducible analysis with R
+========================================================
+Could someone else produce the exact same results on the same data? 
+
+## Basic: preserve input files and save results
+### Preserving input files
+http://www.dataone.org/best-practices/preserve-information-keep-your-raw-data-raw
+
+Keep the raw data raw.
+### Saving graphs 
+Directly save to a file without plotting on an active window:
+```{r eval=FALSE}
+data(mtcars)
+names(mtcars)
+
+# open a new graphic device:
+pdf("myfigure1.pdf") # other formats: jpeg (.jpg), png (.png), postscript (.ps), bmp (.bmp)
+plot(mtcars$wt, mtcars$mpg, xlab = "weight", ylab = "mpg", main = "Scatter plot for weight and mpg") 
+abline(myreg) # add regression line
+dev.off()
+```
+```{r eval=FALSE}
+pdf("c:/myfigures/myfigure1.jpg", height = 5, width = 5) # save in the specified folder, not the working directory, with specified size
+plot(mtcars$wt, mtcars$mpg, xlab = "weight", ylab = "mpg", main = "Scatter plot for weight and mpg") 
+abline(myreg) # add regression line
+dev.off()
+```
+Graphics already plotted on an active window can be saved using the 'Export' command. 
+
+### Saving tables
+Directly save to a file without printing the object: 
+```{r eval=FALSE}
+result.tb = table(mtcars$gear, mtcars$carb)
+write.table(result.tb, "mytable.txt", quote = F) # write a text file 
+write.csv(result.tb, "mytable.csv") # write a csv file
+```
+You can also copy the printed table from the R console and paste to your text editor to edit and/or save. 
+
+### Saving workspace
+```{r eval=FALSE}
+save.image() # save the current workspace
+```
+```{r eval=FALSE}
+load(".RData") # load the saved values
+```
+### Saving R command history 
+* Can be saved using the 'To Source' command. 
+
+* Then edit (delete unwanted commands) and add comments. 
+
+## Writing R scripts 
+* R commands + comments = R script
+
+* A well documented script should contain detailed comments. 
+
+* Can be reviewd, edited or rerun (by the 'source' command) later on. 
+
+## Using R Markdown and knirt 
+* Pretty HTML documentation
+
+* Literate programming  
+
+* Reproducible template for basic tasks in R
+
+* To reproduce this document, 
+  1. Open the R Markdown file 'Lab6.Rmd' in RStudio.
+  2. Click the 'Knit HTML' command on the File menu or on the source editor toolbar. 
+
+* Using R Markdown with RStudio
+  http://www.rstudio.com/ide/docs/authoring/using_markdown
+
+* Creating Notebooks from R Scripts
+  http://www.rstudio.com/ide/docs/authoring/markdown_notebooks
+
+
+Exercise
+--------------------------------------------------------
+
+* Save your graphs, history, and workspace from the previous lab exercise. 
+
+* Create a new R Markdown (template) and click the 'knitr' button to generate an HTML document. 
+
+* Create a new R Script including the following lines (including comments). 
+  ```
+  # Generating a vector of even numbers between 0 and 10 
+  # 1. using 'seq':
+  seq(0, 10, by = 2)
+  # 2. using scalar multiplication of a vector:
+  0:5*2
+  ```
+
+* Then generate an R Markdown file and a HTML document using the 'Compile Notebook' command. 
+

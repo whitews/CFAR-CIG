@@ -1,0 +1,79 @@
+Lab 2: Motivating examples in R
+========================================================
+
+## Read a CSV data file into a data frame
+```{r}
+aids = read.csv("./lab4_data/aids.csv", check.names = F)
+head(aids)
+```
+## Use basic R functions to summarize the data
+### Five number summary
+```{r}
+data(mtcars) # built-in dataset
+head(mtcars)
+fivenum(mtcars$mpg)
+```
+### Contingency table
+```{r}
+table(gear = mtcars$gear, carb = mtcars$carb)
+```
+## Manipulate the data
+### Reshape data
+```{r}
+data(PlantGrowth) # built-in dataset
+head(PlantGrowth) # 30 rows
+unstack(PlantGrowth) # 10 rows: reshaped from long to wide format
+```
+### Subset data
+```{r}
+subset(PlantGrowth, PlantGrowth$weight > 5.5)
+```
+## Perform simple analysis
+### ANOVA
+```{r}
+summary(aov(PlantGrowth$weight ~ PlantGrowth$group))
+```
+### Linear regression
+```{r}
+myreg = lm(mtcars$mpg ~ mtcars$wt)
+summary(myreg)
+```
+## Generate graphs of the analysis
+### Scatter plot with regression line
+```{r fig.width=5, fig.height=5}
+plot(mtcars$wt, mtcars$mpg, xlab = "weight", ylab = "mpg", main = "Scatter plot for weight and mpg") 
+abline(myreg) # add regression line
+```
+## Save results of analysis and make hard copies of graphics 
+### Saving graphs 
+* Directly save to a file without plotting on an active window:
+```{r eval=FALSE}
+# open a new graphic device:
+pdf("myfigure1.pdf") # other formats: jpeg (.jpg), png (.png), postscript (.ps), bmp (.bmp)
+plot(mtcars$wt, mtcars$mpg, xlab = "weight", ylab = "mpg", main = "Scatter plot for weight and mpg") 
+abline(myreg) # add regression line
+dev.off()
+```
+* Graphics already plotted on an active window can be saved using the 'Export' command. 
+
+### Saving tables
+* Directly save to a file without printing the object: 
+```{r eval=FALSE}
+result.tb = table(mtcars$gear, mtcars$carb)
+write.table(result.tb, "mytable.txt", quote = F) # write a text file 
+write.csv(result.tb, "mytable.csv") # write a csv file
+```
+* You can also copy the printed table from the R console and paste to your text editor to edit and/or save. 
+
+### Saving workspace
+```{r eval=FALSE}
+save.image() # save the current workspace
+```
+```{r eval=FALSE}
+load(".RData") # load the saved values
+```
+### Printing graphics
+* Open saved graphics and print them out.
+
+## Create an HTML report with knitr
+This HTML document was generated in RStudio using knitr!

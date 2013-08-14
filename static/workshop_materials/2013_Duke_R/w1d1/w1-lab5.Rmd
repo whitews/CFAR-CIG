@@ -1,0 +1,333 @@
+Lab 5: Data summary and visualization with R
+========================================================
+Datasets
+--------------------------------------------------------
+
+### Built-in datasets in R
+```{r fig.width=4, fig.height=4}
+data() # all available datasets
+data(package = 'lattice') # all data sets in a package
+```
+```{r fig.width=4, fig.height=4}
+data(barley, package = 'lattice') # read in the dataset without loading the package
+help(barley, package = 'lattice') # get information about the dataset without loading the package
+```
+```{r fig.width=4, fig.height=4}
+# same as
+library(lattice) # load the package
+data(barley) # read in the dataset
+help(barley) # get information about the dataset
+```
+```{r fig.width=4, fig.height=4}
+head(barley)
+```
+
+### External datasets 
+* http://exploringdata.net/datasets.htm
+
+* http://lib.stat.cmu.edu/DASL/ 
+
+* http://www.statsci.org/datasets.html
+
+  and more...
+
+A dataset from http://lib.stat.cmu.edu/DASL/ :
+```
+Story Names: Scents and Learning
+
+Description: Data on the time subjects required to complete a pencil and paper maze when they were smelling a floral scent and when they were not.
+
+Number of cases: 21
+
+Variable Names:
+ID:
+Sex: M=male, F=female
+Age: Age in years
+Smoker: Y if subject smoked, N if did not
+Opinion: "pos" if subject found the odor inherently positive, "indiff" if indifferent, "neg" if inherently negative
+Order: 1 if did unscented trials first, 2 if did scented trials first
+UTrial1: length of time required for first unscented trial
+UTrial2: length of time required for second unscented trial
+UTrial3: length of time required for third unscented trial
+STrial1: length of time required for first scented trial
+STrial2: length of time required for second scented trial
+STrial3: length of time required for third scented trial
+```
+```{r fig.width=4, fig.height=4}
+sc = read.table("scents.txt", head = T) # read in the data
+names(sc)
+head(sc)
+# Access a variable:
+sc$Age
+# Access a variable by its name:
+Age
+attach(sc) # to access the variable names 
+Age
+detach(sc) # clean up
+```
+
+Summary statistics and graphical displays
+--------------------------------------------------------
+This simple command gives a (univariate) summary of each column:
+```{r fig.width=4, fig.height=4}
+summary(sc) # gives mean and five number summary for numeric type, and counts for charactor type
+```
+
+### Univariate data I - categorical
+#### Factors
+* In the above dataset, there are five categorical variables, 'ID', 'Sex', 'Smoker', 'Opinion', and 'Order'. 
+* A categorical variable is also called a factor. 
+```{r}
+# A character vector is automatically treated as a factor: 
+is.factor(sc$Sex)
+sc$Order
+is.factor(sc$Order) # 'Order' is coded as numeric but in fact a categorical variable! 
+```
+
+```{r fig.width=4, fig.height=4}
+sc$Order = factor(sc$Order) # now treated as a categorical variable
+sc$Order # levels are printed; levels are numeric
+```
+#### Frequency tables 
+```{r fig.width=4, fig.height=4}
+table(sc$Order)
+# same as
+summary(sc$Order)
+```
+#### bar plots
+```{r fig.width=4, fig.height=4}
+barplot(sc$Smoker) # using raw data?
+barplot(table(sc$Smoker)) # using summarized data!
+barplot(table(sc$Smoker), col = c("light blue", "pink")) # change color
+barplot(table(sc$Smoker)/length(sc$Smoker)) # proportions
+table(sc$Smoker)/length(sc$Smoker) # proportions
+```
+#### Pie charts
+```{r fig.width=4, fig.height=4}
+(tb <- table(sc$Opinion)) # make assignment as well as print the object
+pie(tb)
+names(tb) = c("Indifferent", "Negative", "Positive") # new labels for levels
+pie(tb) # now with new labels
+```
+
+### Univariate data II - numerical
+#### Five number summary
+```{r}
+fivenum(sc$Age) # min, lower hinge, dedian, upper hinge, max
+summary(sc$Age) # five number summary and mean
+```
+#### Stem-and-leaf plots
+```{r}
+stem(sc$UTrial1)
+stem(sc$UTrial1, scale = 2) # a longer plot
+```
+#### Histograms
+```{r fig.width=4, fig.height=4}
+hist(sc$STrial1)
+hist(sc$STrial1, prob = T) # proportions; area under the histogram equals 1
+rug(sc$STrial1) # add tick marks
+lines(density(sc$STrial1), lty = 2) # add a dotted density curve 
+```
+#### Box plots
+```{r fig.width=4, fig.height=4}
+boxplot(sc$STrial2)
+boxplot(sc$STrial2, main = "Box plot for S-Trial 2", ylab = "Time (second)") # Add title and y-axis label
+rug(sc$STrial2, side = 2, col = "red") # add tick marks
+```
+
+### Bivariate data I - categorical vs. categorical
+#### Contingency tables
+```{r fig.width=4, fig.height=4}
+table(sc$Smoker, sc$Sex)
+table(Smoker = sc$Smoker, Sex = sc$Sex) # prints names as given
+```
+#### bar plots
+```{r fig.width=4, fig.height=4}
+barplot(table(sc$Smoker, sc$Sex))
+barplot(table(sc$Sex, sc$Smoker))
+barplot(table(sc$Sex, sc$Smoker), beside = T) # besides; default is stacked
+barplot(table(sc$Sex, sc$Smoker), beside = T, legend.text = T) # add a legend
+```
+### Bivariate data II - categorical vs. numerical
+#### Box plots 
+```{r fig.width=4, fig.height=4}
+boxplot(sc$UTrial1 ~ sc$Sex) # a side by side box plot
+```
+```{r fig.width=4, fig.height=4}
+# same as above except for x-axis labels
+boxplot(sc$UTrial1[sc$Sex == "F"], sc$UTrial1[sc$Sex == "M"]) 
+```
+```{r fig.width=4, fig.height=4}
+# change axis labels
+boxplot(sc$UTrial1[sc$Sex == "F"], sc$UTrial1[sc$Sex == "M"], xaxt = "n") # no x-axis
+axis(1, at = 1:2, labels = c("F", "M")) # new x-axis
+rug(sc$UTrial1[sc$Sex == "F"], side = 2) # add a rug
+rug(sc$UTrial1[sc$Sex == "M"], side = 4) # add a rug
+```
+#### Stripcharts (dot plots)
+```{r fig.width=4, fig.height=4}
+stripchart(sc$UTrial1 ~ sc$Sex)
+```
+```{r fig.width=4, fig.height=4}
+# Add a stripchart to a box plot:
+boxplot(sc$UTrial1 ~ sc$Sex)
+stripchart(sc$UTrial1 ~ sc$Sex, vertical = T, col = "red", pch = "x", add = T)
+```
+### Bivariate data III - numerical vs. numerical
+#### Correlation coefficients
+Strengh of the 'linear' relationship between two numerical variables
+```{r fig.width=4, fig.height=4}
+cor(sc$UTrial1, sc$STrial1)
+cor(sc[, 7:12]) # correlation matrix 
+```
+#### Scatter Plots
+```{r fig.width=4, fig.height=4}
+plot(sc$UTrial1, sc$UTrial2)
+abline(lm(sc$UTrial2 ~ sc$UTrial1)) # add the regression line of UTrial2 on UTrial1 (y on x)
+```
+```{r fig.width=4, fig.height=4}
+plot(sc$UTrial1, sc$UTrial2, type = "n") # no points or lines
+points(sc$UTrial1, sc$UTrial2, pch = 19, cex = 2) # plot points
+plot(sc$UTrial1, sc$UTrial2, type = "n") # no points or lines
+text(sc$UTrial1, sc$UTrial2, labels = sc$Smoker) # plot character strings
+```
+```{r fig.width=4, fig.height=4}
+# All pairwise scatter plots:
+plot(sc[, 7:12])
+```
+
+```{r fig.width=4, fig.height=4}
+# 'plot' for numerical vs. categorical?
+plot(sc$Sex, sc$UTrial1) 
+```
+```{r fig.width=4, fig.height=4}
+# same as 
+boxplot(sc$UTrial1 ~ sc$Sex)
+```
+```{r fig.width=4, fig.height=4}
+# also same as this except for x, y axis labels
+plot(sc$UTrial1 ~ sc$Sex)
+```
+
+
+
+R Graphics
+--------------------------------------------------------
+### High-level plotting functions
+* 'plot' = scatter plot
+
+* 'hist' = histogram
+
+* 'boxplot' = box plot
+
+* 'stripchart' = strip chart
+
+* 'barplot' = bar plot
+
+* 'stem' = stem-and-leaf plot
+
+* 'curve' = curve corresponding to a function or an expression.
+
+  
+  and more ... 
+
+```{r}
+# Arguments of the 'plot' function:
+help(plot)
+```
+```
+* type: "p" = points; "l" = lines; "b" = both; "c" = empty points joined by lines; "o" = overplotted points and lines; "s" or "S" = stair steps; "h" = histogram-like vertical lines; finally, "n" does not produce any points or lines.
+
+* xlim, ylim: x limits,  y limits
+
+* main: a main title
+
+* sub: a sub title
+
+* xlab, ylab: a label for the x-, y- axis
+
+* axes: a logical value indicating whether both axes should be drawn on the plot. Use "xaxt" or "yaxt" to suppress just one of the 
+
+* xaxt: The x axis type. Specifying "n" suppresses plotting of the axis. The standard value is "s". any value other than "n" implies plotting.
+```
+  
+### Lower-level plotting functions
+To add further elements to the main plot
+```{r}
+help(plot.default)
+help(par)
+```
+
+* 'axis' adds an axis on the specified side.
+
+* 'title' adds titles (main, sub) and axis lables.
+
+* 'lines' draws single line that connect the points at the specified coordinates.
+
+* 'abline' draws single straight line with the specified slope and intercepts. 
+
+* 'text' draws a sequence of strings at the specified coordinates.
+
+* 'points' draws a sequence of points at the specified coordinates.
+
+* 'legend' adds a legend.
+
+* 'rug' adds tick marks on the specified side.
+
+
+### Setting graphical parameters using 'par'
+Permanant changes in graphical parameters for the current graphic device. 
+```{r}
+help(par)
+```
+
+Combining multiple plots:
+```{r fig.width=4, fig.height=4}
+par(mfrow = c(2,2)) # a 2x2 matrix of plots filled in by row
+x = seq(-pi/4, pi/4, .01)
+plot(x, sin(x), type = 'l')
+plot(x, cos(x), type = 'l')
+plot(x, tan(x), type = 'l')
+```
+
+Restoring original settings (from Quick-R http://www.statmethods.net/advgraphs/parameters.html): 
+```{r eval = F}
+par()              # view current settings
+opar <- par()      # make a copy of current settings
+par(col.lab="red") # red x and y labels 
+hist(mtcars$mpg)   # create a plot with these new settings 
+par(opar)          # restore original settings
+```
+
+Exercise
+--------------------------------------------------------
+* Read in the 'barley' dataset in the 'lattice' package. 
+
+* Attach the data.
+
+* Obtain univariate summary statistics for each variable. 
+
+* Make a histogram for yield. 
+
+* Make a contingency table for variety and site. 
+
+* Using a side-by-side box plot, investigate the relationship between yield and variety. Repeat this for yield and site. 
+
+* Enter in the following data. 
+
+  x: 4  9  9 10  9  8  4  7  9  3
+  
+  y: 9 19 20 21 18 17  9 15 20  7
+  
+* Make a scatter plot of x and y. 
+
+* Add a straight line with slope = 2, y-intercept = 1 using one of the following. 
+
+  * abline(a = 1, b = 2)
+  
+  * s = seq(3, 10, .1); lines(s, 2*s + 1)
+  
+  * curve(2*x + 1, 3, 10, add = T)
+
+* Do not leave RStudio until you learn how to save your work in the next lab session. 
+  
