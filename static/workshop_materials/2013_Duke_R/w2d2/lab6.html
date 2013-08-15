@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Practical R Programming</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Practical R Programming</h1>
+
+<p>In this sesssion we will cover some examples of practical programmin in R. We will start by reviewing the builidng blocks of R functions, and then look at several common programming challenges of varying levels of complexity. Here are the storeis about the programming challenges.</p>
+
+<h2>Peek</h2>
+
+<p>It is a good practice to inspect your data before doing any serious analyiss (otherwise known as a &ldquo;sanity check&rdquo;). One way to do this is to simply inspect a few elements. The built-in funciton <code>head</code> and <code>tail</code> do this, but only present possibly very atypical data. We want to write a function to display random rows in a dataframe to avoid looking a biased samples.</p>
+
+<h3>Skills</h3>
+
+<ol>
+<li>Writing custom funcitons</li>
+<li>Using default arguments</li>
+<li>Using the <code>sample</code> function</li>
+<li>Use of indices to extract data frame elements</li>
+</ol>
+
+<h2>Data munging</h2>
+
+<p>In reality, most data in biology is &ldquo;dirty&rdquo; and comes with several errors. We need to clean this up before analysis can be meaningfully performed. Cleaning up and managing data is also known as &ldquo;data munging&rdquo;, and the dirty secret of the statistics industry is that this is often the  most time-consuming part of the anlaysis. We will take a detailed look at how to perform data munging in R, and introduce the <code>plyr</code> package for reshaping and summarizing data sets flexibly.</p>
+
+<h3>Skills</h3>
+
+<ol>
+<li>Checking data for errors</li>
+<li>Fixing different types of errors</li>
+<li>Introduction to data resahpping and summarizing with <code>plyr</code></li>
+<li>Using R graphics</li>
+</ol>
+
+<h2>Permutation testing</h2>
+
+<p>When it comes to analysis, we may not always know what the appropriate test to perform is. A general method that works in most cases is permutation resampling andcomparing the test stastistic of interest against its empirical null distrbibution. Here we providde an example of how to do this.</p>
+
+<h3>Skills</h3>
+
+<ol>
+<li>How to perform a permutaiton test</li>
+<li>Looping</li>
+<li>Using R graphics</li>
+<li>How to generalize a script into a more flexible function</li>
+</ol>
+
+<h2>Plotting QC data</h2>
+
+<p>We conclude by looking at an extended example that brings together many different aspects of programming in R. We collect daily QC files for an instrument, and want to plot trend lines for each QC measurement so as to identify potential problems. The problem is fairly complex since it involves working with multiple files, date hanling and customized graphics. We show how to break the problem into smaller pieces using top-down programming, and finally reassemble the component pieces to give us the function we need.</p>
+
+<h3>Skills</h3>
+
+<ol>
+<li>Working with dates</li>
+<li>Working with multiple files</li>
+<li>Looping</li>
+<li>Combining data frames</li>
+<li>Using the <code>order</code> function</li>
+<li>Using R graphics</li>
+<li>Top-down program decomposition</li>
+</ol>
+
+</body>
+
+</html>
+
