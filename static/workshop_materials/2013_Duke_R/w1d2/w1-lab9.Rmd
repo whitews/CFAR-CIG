@@ -1,0 +1,84 @@
+Lab 9: Logistic regression (binary outcomes)
+========================================================
+Simple logistic regression
+--------------------------------------------------------
+```{r fig.width=4, fig.height=4}
+Predictor = c(2, 4, 6, 10, 18, 19, 21, 22, 24, 40) # continuous
+Outcome = c("Good", "Good", "Good", "Bad", "Bad", "Good", "Bad", "Bad", "Bad", "Bad") # binary
+```
+```{r fig.width=4, fig.height=4}
+help(glm)
+```
+### Coding with the binary response
+Response needs to be a factor with the first level denoting failure.
+```{r fig.width=4, fig.height=4}
+# try this
+glm(Outcome ~ Predictor, family = "binomial"(link = "logit"))
+```
+```{r fig.width=4, fig.height=4}
+is.factor(Outcome)
+factor(Outcome) # levels in alphabetical order
+factor(Outcome, levels = c("Good", "Bad"))
+Outcome = factor(Outcome) # first level as failure
+myglm = glm(Outcome ~ Predictor, family = "binomial")
+sglm = summary(myglm)
+sglm
+names(sglm)
+sglm$coef 
+plot(Predictor, Outcome == "Good")
+x = seq(2,40, 0.1)
+lines(x, predict(myglm, newdata = data.frame(Predictor = x), type = "response")) 
+```
+
+### Coding with tabulated response
+Suppose the outcome is the same as before but the predictor looks like this:  
+```{r fig.width=4, fig.height=4}
+Predictor2 = c(10, 10, 10, 10, 18, 18, 18, 24, 24, 24)
+```
+Since there are ties, we can tabulate the data. 
+```{r fig.width=4, fig.height=4}
+(tb <- table(Predictor2, Outcome)) # two-column matrix of success and failure counts
+```
+We will act as if the original data were given in this tabulated form. The vector of row names will be used as covariate. 
+```{r fig.width=4, fig.height=4}
+rownames(tb) # charactor
+(Predictor3 <- as.numeric(rownames(tb))) # numeric
+```
+#### Response as two-column matrix
+Response needs to be specified as a two-column matrix with the columns giving the numbers of successes and failures. 
+```{r fig.width=4, fig.height=4}
+myglm2 = glm(tb ~ Predictor3, family = binomial("logit")) 
+summary(myglm2)
+```
+#### Response as a vector (with weights)
+Response needs to be specified as a vector of proportions of successes. Also need to use successes+failures counts as weights. 
+```{r fig.width=4, fig.height=4}
+# row proportions 
+(tb2 <- prop.table(tb, 1)) 
+# same as 
+tb/rowSums(tb)
+myglm3 = glm(tb2[,2] ~ Predictor3, weights = rowSums(tb), family = binomial("logit")) # same as myglm2, give proportions and weigh by counts of success+failure
+summary(myglm3)
+```
+
+
+```{r fig.width=4, fig.height=4}
+sglm3 = summary(myglm2)
+sglm3$coef
+```
+```{r fig.width=4, fig.height=4}
+plot(Predictor, Outcome == "Good")
+x = seq(2,40, 0.1)
+lines(x, predict(myglm3, newdata = data.frame(Predictor3 = x), type = "response"))
+```
+
+Multivariate logistic regression
+--------------------------------------------------------
+Similar to multivariate linear regression
+
+Exercise
+--------------------------------------------------------
+* Using the 'esoph' dataset, perform a logistic regression of the cancer rate against agegp, alcgp and tobgp.  
+
+
+

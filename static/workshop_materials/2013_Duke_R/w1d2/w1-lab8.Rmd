@@ -1,0 +1,90 @@
+Lab 8: Linear regression (continuous outcomes)
+========================================================
+Simple linear regression
+--------------------------------------------------------
+```{r fig.width=4, fig.height=4}
+Predictor = c(2, 4, 6, 10, 18, 19, 21, 22, 24, 40)
+Outcome = c(16, 18, 20, 22, 24, 25, 28, 29, 33, 50)
+mylm = lm(Outcome ~ Predictor)
+mylm # printing an lm object: not much to see
+slm = summary(mylm)
+slm # printing the summary of an lm object
+# What are in the summary of an lm object?
+names(slm)
+# coefficient estimates
+mycoef = slm$coef 
+mycoef
+# or simply
+coef(mylm) # a (named) vector
+round(coef(mylm), 2) # rounding
+# 'mycoef' is in a matrix form, so try this for column names
+names(mycoef) 
+is.data.frame(mycoef) # 'mycoef' is a matrix, but not a data.frame
+# 'names' works with data.frame, but not with general matrices To get column names of general matrices, use
+colnames(mycoef)
+# standard errors for coefficient estimates
+mycoef[, 2]
+# same as
+mycoef[, "Std. Error"]
+# also same as
+as.data.frame(mycoef)$St # abbreviation does work here
+# confidence intervals for coefficient estimates
+confint(mylm)
+confint(mylm, level = .9)
+confint(mylm, "Predictor", .9)
+# residual standard error
+slm$sigma
+# What are in an lm object?
+names(mylm)
+# coefficient estimates again
+mylm$coef # abbreviation works
+# fitted values
+mylm$fitt 
+# same as
+fitted(mylm) # no abbreviaion allowed for function names
+# residulas
+mylm$res
+# same as
+residuals(mylm)
+# also same as
+resid(mylm)
+# also same as
+slm$res
+# also same as 
+Outcome - mylm$fitt
+# predictiction
+morePredictor = c(15.5, 17.5)
+X = data.frame(Predictor = morePredictor)
+predict(mylm, newdata = X)
+# same as
+mycoef[1] + mycoef[2] * morePredictor
+```
+
+Multivariate linear regression
+--------------------------------------------------------
+```{r fig.width=4, fig.height=4}
+data(environmental, package = 'lattice')
+head(environmental)
+plot(environmental)
+lmozone = lm(ozone ~ radiation + temperature + wind, data = environmental)
+summary(lmozone)
+```
+The fitted regression equation can be written as
+```
+ozone = `r coef(lmozone)[1]` + `r coef(lmozone)[2]` * radiation + `r coef(lmozone)[3]` * temperature + `r coef(lmozone)[4]` * wind  
+```
+Prediction of ozone for new covariate values can be done with this equation or the 'predict' command. 
+
+Exercise
+--------------------------------------------------------
+* For the above Predictor and Outcome data, create a scatter plot for Outcome versus Predictor and add the fitted regression line. 
+
+* Plot residuals aginst fitted values. This is called a residual plot. Add a horizontal line at 0. 
+
+* For the built-in dataset 'women', fit a linear regression model for weight against height. 
+
+* Find fitted values and the $R^2$ statistic.
+
+* Create a scatter plot for weight against height. Add the fitted regression line. 
+
+* Predict weights of three women with heights being 65, 59, 62, respectively, in inches. 

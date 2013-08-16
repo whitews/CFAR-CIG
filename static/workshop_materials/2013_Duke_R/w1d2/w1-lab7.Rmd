@@ -1,0 +1,209 @@
+Lab 7: Hypothesis testing
+========================================================
+t-tests
+--------------------------------------------------------
+### One-sample t-test
+* Null hypothesis $H_0: \mu=a$ 
+* Two-sided alternative $H_A: \mu\neq a$
+* One-sided alternative $H_A: \mu<(>) a$
+
+where $\mu$ is the true mean and the null value $a$ is some external reference value, often 0. 
+
+Suppose we have 10 measurements for the weight of a bag of flour with a nominal weight of 100g. We want to test if the true weight is off the nominal value. That is, the hypotheses are 
+$$H_0: \mu=100, \quad H_0: \mu\neq 100$$
+```{r}
+flour = c(111, 122, 98, 103, 89, 100, 101, 99, 102, 100)
+t.test(flour, mu = 100)
+```
+Equivalently, we can test if the gap between the true mean and the nominal value is 0. 
+```{r}
+err = flour-100
+t.test(err) 
+```
+We will see more details about the t.test function below. 
+### Two-sample t-test
+* Null hypothesis $H_0: \mu_1=\mu_2$ 
+* Two-sided alternative $H_A: \mu_1\neq \mu_2$
+* One-sided alternative $H_A: \mu_1<(>) \mu_2$
+
+#### 1. Independent samples
+```{r}
+Group = c(rep("A", 5), rep("B", 5)) # same as rep(c("A", "B"), rep(5, 2))
+Outcome = c(16, 18, 20, 22, 24, 25, 28, 29, 33, 50)
+tapply(Outcome, Group, mean) # group means
+t.test(Outcome[Group == "A"], Outcome[Group == "B"])
+# same as
+myt = t.test(Outcome ~ Group)
+myt
+names(myt)
+# t-statistic ('signal to noise' ratio)
+myt$stat
+# degrees of freedom of the t-statistics
+myt$param
+# p-value of the test
+myt$p.value
+# same as 
+2 * pt(myt$stat, df = myt$param)
+# sample means
+myt$estimate
+# confidence interval of true difference in means
+myt$conf
+# change confidence level
+t.test(Outcome ~ Group, conf.level = .9) # only conf.int is changed
+# one-sided test
+myt.1s = t.test(Outcome ~ Group, alternative = "less")
+myt.1s$p.v == myt$p.v/2 # one-sided p.value is half the two-sided p.value
+``` 
+
+#### 2. Paired samples
+Suppose the two groups in fact share all members rather than are independent, and the data look like this:
+```{r echo = FALSE, comment = ""}
+wideform = as.matrix(cbind(ID = 1:5, unstack(data.frame(Outcome, Group))))
+rownames(wideform) = rep(" ",5)
+wideform
+```
+That is, each of the five members has two outcomes, for A and B. Note that they are not independent, so it differs from the independent two-sample case. You want to test if the two measures are the same, on average,  within the same person. 
+```{r}
+# paired t-test
+t.test(Outcome ~ Group, paired = T) # don't need to change the original data format
+# same as    
+wide = unstack(data.frame(Outcome, Group)) # a new, correct format
+diffAB = wide[,1] - wide[,2]
+t.test(diffAB) # one-sample t-test for null value 0 
+```
+
+Now suppose we want to test 
+$$H_0: \mu_1 - \mu_2 = -10, \quad H_A: \mu_1 - \mu_2  < -10$$ 
+```{r}
+t.test(Outcome ~ Group, mu = -10, alternative = "less", paired = T)
+# same as
+t.test(diffAB, mu = -10, alternative = "less")
+```
+
+ANOVA
+--------------------------------------------------------
+### One-way ANOVA
+Generalization of the independent two-sample t-test for multi-sample cases. One-way means only one factor is considered, and n-sample means the factor has n levels. 
+
+Going back to the original independent two-sample data, suppose we have Outcome values measured for Group C.  
+```{r}
+Group = c(Group, rep("C", 5))
+Outcome = c(Outcome, c(19, 16, 21, 16, 18))
+# mean for each level of Group
+tapply(Outcome, Group, mean)
+myaov = aov(Outcome~Group)
+summary(myaov) 
+# same as
+anova(lm(Outcome~Group))
+```
+### Two-way ANOVA
+#### Model formula in general
+```
+y ~ x1 + x2           #      
+y ~ x1 + x2 + x1:x2   # two-way interaction
+y ~ x1 * x2           # same as above
+y ~ x1 + I(x2^2)      # usual mathematical calculation inside 'I'
+y ~ (x1 + x2 + x3)^2  # all two-way interactions
+```
+* If x1 is a categorical variable and x2 is continuous, then x1:x2 allows a different slope for each different level of x1.
+* (x1 + x2)^2 is equivalent to x1 * x2 and x1 + x2 + x1:x2. 
+
+For two-way ANOVA, we consider two factors as covariates. 
+```{r}
+# a new covariate
+Trt = c("T1", "T1", "T2", "T1", "T2", "T1", "T1", "T2", "T2", "T2", "T1", "T1", "T2", "T2", "T1")
+# mean for each combination of Group and Trt levels
+tapply(Outcome, list(Group = Group, Treatment = Trt), mean)
+# two-way ANOVA
+mylm.main = lm(Outcome ~ Group + Trt)
+anova(mylm.main)
+# two-way ANOVA with interaction
+mylm.int = lm(Outcome ~ Group + Trt + Group:Trt)
+anova(mylm.int)
+# same as 
+mylm.int = lm(Outcome ~ Group*Trt)
+anova(mylm.int)
+```
+#### In R, the default is the sequential ANOVA
+You may skip the following paragraph and go directly to the conclusion. 
+
+When you have more than one factors, say x1 and  x2, as covariates in the model formula inside the 'lm' command and the number of cells in the contingency table are unbalanced, the order they are entered matters in terms of the sum of squares (SS, think of this as 'signal' of effect) and hence their test p-values. The reason is as follows. With a two-factor ANOVA, we want to know the pure effect x1 and x2. However, under an unbalanced setting, signals from x1 and x2 are not perfectly partitioned. Some signal might be from both x1 and x2. The default in R to deal with this issue is to add this ambigous signal to the SS of the first entered factor, i.e. x1 in the case of 'y ~ x1 + x2', so it is an exaggerated estimate for the exclusive effect of x1 we are interested in. On the other hand, the SS of x2 only contains the signal exclusively from x2 which is what we truly want. This partitioning option that R uses is called sequential SS (or Type I SS in the SAS software; there are also Type II, III (in SAS) and possibly more). Generalizing this to more factors, the individual test result is reliable for the last entered factor only. We should not judge true significance of the others with this particular ordering. 
+
+In conclusion, 
+
+* When we have two or more factors and an unbalanced setting, the order the factors are entered in a model formula affects the test results for individual factors. 
+
+* In this case, the individual significance test result is valid only for the last entered factor in the model formula. Moreover, this last test is not affeced by ordering of all the preceding factors. 
+
+* With balanced setting, their is no such issue. 
+
+* Also for continuous type covariates, all the results are exactly the same regardless of their order in the model formula. 
+
+* In any case, ordering does not affect the significance test result of the model as a whole or the $R^2$ statistic. 
+
+* In the case of more than two factors and unbalaced setting, it is recommended to use this 'anova' result only for testing the significace of the model as a whole (which is not affected by ordering) and not for dropping insignificant variables from the model. 
+
+* Also in this case, to reduce to a simper model by dropping insignificant variables, it is recommended to use the 'anova(smaller model, bigger model)' command for comparing nested models.  
+
+
+#### Comparison between nested models 
+```{r}
+# significance test for interaction
+anova(mylm.main, mylm.int) # not significant
+# significance test for Trt
+mylm.simple = lm(Outcome ~ Group)
+anova(mylm.simple, mylm.main) # not significant
+# take 'Outcome ~ Group' as a final model. 
+anova(mylm.simple)
+```
+
+Chi-square tests
+--------------------------------------------------------
+
+### Chi-squared test for homogeneity
+Do Group A, B, and C have the same distribution of Perf? 
+```{r}
+Perf = c("Good", "Good", "Good", "Bad", "Bad", "Good", "Bad", "Bad", "Bad", "Bad", "Bad", "Bad", "Bad", "Good", "Good")
+table(Group, Perf)
+mychi = chisq.test(table(Group, Perf))
+mychi
+names(mychi)
+```
+
+
+### Chi-squared test of independence
+Number of people in each level of health condition, smokers versus non-smokers. Does smoking make a difference in health condition (are the two rows below independent)? 
+```{r}
+smoker = rbind(smoke = c(12, 20, 31), nsmoke = c(10, 9, 12))
+colnames(smoker) = c("good", "normal", "bad")
+smoker
+chisq.test(smoker)
+```
+
+### Chi-squared goodness of fit test
+Number of rainy days each month. Does it rain evenly across months? 
+```{r}
+rainy = c(2, 4, 5, 7, 10, 9, 12, 13, 6, 3, 5, 4)
+prop = c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)/365
+chisq.test(rainy, p = prop)
+```
+
+Exercise
+--------------------------------------------------------
+* For the above data of Group and Outcome, perform an independent two-sample t-test for between Groups B and C. Repeat for Groups A and C. 
+
+* For the built-in dataset 'PlantGrowth', perform one-way ANOVA for weight against group. 
+
+* For the built-in dataset 'mtcars', perform two-way ANOVA for mpg against gear and carb. 
+
+* Load the built-in dataset 'esoph' and extract rows 51-54 (they only differ in tobgp and have other two values in common; agegp = 55-64 and alcgp =  40-79). Perform a chi-square test to see if tobgp has any effect on the cancer (you only need two columns ncases and ncontrol).  
+
+
+
+
+
+
+
+
+
+

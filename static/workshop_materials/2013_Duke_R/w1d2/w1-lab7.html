@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Lab 7: Hypothesis testing</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>Lab 7: Hypothesis testing</h1>
+
+<h2>t-tests</h2>
+
+<h3>One-sample t-test</h3>
+
+<ul>
+<li>Null hypothesis \( H_0: \mu=a \) </li>
+<li>Two-sided alternative \( H_A: \mu\neq a \)</li>
+<li>One-sided alternative \( H_A: \mu<(>) a \)</li>
+</ul>
+
+<p>where \( \mu \) is the true mean and the null value \( a \) is some external reference value, often 0. </p>
+
+<p>Suppose we have 10 measurements for the weight of a bag of flour with a nominal weight of 100g. We want to test if the true weight is off the nominal value. That is, the hypotheses are 
+\[ H_0: \mu=100, \quad H_0: \mu\neq 100 \]</p>
+
+<pre><code class="r">flour = c(111, 122, 98, 103, 89, 100, 101, 99, 102, 100)
+t.test(flour, mu = 100)
+</code></pre>
+
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  flour
+## t = 0.9078, df = 9, p-value = 0.3876
+## alternative hypothesis: true mean is not equal to 100
+## 95 percent confidence interval:
+##   96.27 108.73
+## sample estimates:
+## mean of x 
+##     102.5
+</code></pre>
+
+<p>Equivalently, we can test if the gap between the true mean and the nominal value is 0. </p>
+
+<pre><code class="r">err = flour - 100
+t.test(err)
+</code></pre>
+
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  err
+## t = 0.9078, df = 9, p-value = 0.3876
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  -3.729  8.729
+## sample estimates:
+## mean of x 
+##       2.5
+</code></pre>
+
+<p>We will see more details about the t.test function below. </p>
+
+<h3>Two-sample t-test</h3>
+
+<ul>
+<li>Null hypothesis \( H_0: \mu_1=\mu_2 \) </li>
+<li>Two-sided alternative \( H_A: \mu_1\neq \mu_2 \)</li>
+<li>One-sided alternative \( H_A: \mu_1<(>) \mu_2 \)</li>
+</ul>
+
+<h4>1. Independent samples</h4>
+
+<pre><code class="r">Group = c(rep(&quot;A&quot;, 5), rep(&quot;B&quot;, 5))
+Outcome = c(16, 18, 20, 22, 24, 25, 28, 29, 33, 50)
+tapply(Outcome, Group, mean)  # group means
+</code></pre>
+
+<pre><code>##  A  B 
+## 20 33
+</code></pre>
+
+<pre><code class="r">t.test(Outcome[Group == &quot;A&quot;], Outcome[Group == &quot;B&quot;])
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Outcome[Group == &quot;A&quot;] and Outcome[Group == &quot;B&quot;]
+## t = -2.791, df = 4.804, p-value = 0.04015
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -25.1231  -0.8769
+## sample estimates:
+## mean of x mean of y 
+##        20        33
+</code></pre>
+
+<pre><code class="r"># same as
+myt = t.test(Outcome ~ Group)
+myt
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Outcome by Group
+## t = -2.791, df = 4.804, p-value = 0.04015
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -25.1231  -0.8769
+## sample estimates:
+## mean in group A mean in group B 
+##              20              33
+</code></pre>
+
+<pre><code class="r">names(myt)
+</code></pre>
+
+<pre><code>## [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
+## [6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;
+</code></pre>
+
+<pre><code class="r"># t-statistic (&#39;signal to noise&#39; ratio)
+myt$stat
+</code></pre>
+
+<pre><code>##      t 
+## -2.791
+</code></pre>
+
+<pre><code class="r"># degrees of freedom of the t-statistics
+myt$param
+</code></pre>
+
+<pre><code>##    df 
+## 4.804
+</code></pre>
+
+<pre><code class="r"># p-value of the test
+myt$p.value
+</code></pre>
+
+<pre><code>## [1] 0.04015
+</code></pre>
+
+<pre><code class="r"># same as
+2 * pt(myt$stat, df = myt$param)
+</code></pre>
+
+<pre><code>##       t 
+## 0.04015
+</code></pre>
+
+<pre><code class="r"># sample means
+myt$estimate
+</code></pre>
+
+<pre><code>## mean in group A mean in group B 
+##              20              33
+</code></pre>
+
+<pre><code class="r"># confidence interval of true difference in means
+myt$conf
+</code></pre>
+
+<pre><code>## [1] -25.1231  -0.8769
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95
+</code></pre>
+
+<pre><code class="r"># change confidence level
+t.test(Outcome ~ Group, conf.level = 0.9)  # only conf.int is changed
+</code></pre>
+
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Outcome by Group
+## t = -2.791, df = 4.804, p-value = 0.04015
+## alternative hypothesis: true difference in means is not equal to 0
+## 90 percent confidence interval:
+##  -22.472  -3.528
+## sample estimates:
+## mean in group A mean in group B 
+##              20              33
+</code></pre>
+
+<pre><code class="r"># one-sided test
+myt.1s = t.test(Outcome ~ Group, alternative = &quot;less&quot;)
+myt.1s$p.v == myt$p.v/2  # one-sided p.value is half the two-sided p.value
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<h4>2. Paired samples</h4>
+
+<p>Suppose the two groups in fact share all members rather than are independent, and the data look like this:</p>
+
+<pre><code>  ID  A  B
+   1 16 25
+   2 18 28
+   3 20 29
+   4 22 33
+   5 24 50
+</code></pre>
+
+<p>That is, each of the five members has two outcomes, for A and B. Note that they are not independent, so it differs from the independent two-sample case. You want to test if the two measures are the same, on average,  within the same person. </p>
+
+<pre><code class="r"># paired t-test
+t.test(Outcome ~ Group, paired = T)  # don&#39;t need to change the original data format
+</code></pre>
+
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  Outcome by Group
+## t = -3.974, df = 4, p-value = 0.01648
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -22.082  -3.918
+## sample estimates:
+## mean of the differences 
+##                     -13
+</code></pre>
+
+<pre><code class="r"># same as
+wide = unstack(data.frame(Outcome, Group))  # a new, correct format
+diffAB = wide[, 1] - wide[, 2]
+t.test(diffAB)  # one-sample t-test for null value 0
+</code></pre>
+
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  diffAB
+## t = -3.974, df = 4, p-value = 0.01648
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  -22.082  -3.918
+## sample estimates:
+## mean of x 
+##       -13
+</code></pre>
+
+<p>Now suppose we want to test 
+\[ H_0: \mu_1 - \mu_2 = -10, \quad H_A: \mu_1 - \mu_2  < -10 \] </p>
+
+<pre><code class="r">t.test(Outcome ~ Group, mu = -10, alternative = &quot;less&quot;, paired = T)
+</code></pre>
+
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  Outcome by Group
+## t = -0.9171, df = 4, p-value = 0.2055
+## alternative hypothesis: true difference in means is less than -10
+## 95 percent confidence interval:
+##    -Inf -6.027
+## sample estimates:
+## mean of the differences 
+##                     -13
+</code></pre>
+
+<pre><code class="r"># same as
+t.test(diffAB, mu = -10, alternative = &quot;less&quot;)
+</code></pre>
+
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  diffAB
+## t = -0.9171, df = 4, p-value = 0.2055
+## alternative hypothesis: true mean is less than -10
+## 95 percent confidence interval:
+##    -Inf -6.027
+## sample estimates:
+## mean of x 
+##       -13
+</code></pre>
+
+<h2>ANOVA</h2>
+
+<h3>One-way ANOVA</h3>
+
+<p>Generalization of the independent two-sample t-test for multi-sample cases. One-way means only one factor is considered, and n-sample means the factor has n levels. </p>
+
+<p>Going back to the original independent two-sample data, suppose we have Outcome values measured for Group C.  </p>
+
+<pre><code class="r">Group = c(Group, rep(&quot;C&quot;, 5))
+Outcome = c(Outcome, c(19, 16, 21, 16, 18))
+# mean for each level of Group
+tapply(Outcome, Group, mean)
+</code></pre>
+
+<pre><code>##  A  B  C 
+## 20 33 18
+</code></pre>
+
+<pre><code class="r">myaov = aov(Outcome ~ Group)
+summary(myaov)
+</code></pre>
+
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## Group        2    663     332    8.81 0.0044 **
+## Residuals   12    452      38                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<pre><code class="r"># same as
+anova(lm(Outcome ~ Group))
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Outcome
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## Group      2    663     332    8.81 0.0044 **
+## Residuals 12    452      38                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<h3>Two-way ANOVA</h3>
+
+<h4>Model formula in general</h4>
+
+<pre><code>y ~ x1 + x2           #      
+y ~ x1 + x2 + x1:x2   # two-way interaction
+y ~ x1 * x2           # same as above
+y ~ x1 + I(x2^2)      # usual mathematical calculation inside &#39;I&#39;
+y ~ (x1 + x2 + x3)^2  # all two-way interactions
+</code></pre>
+
+<ul>
+<li>If x1 is a categorical variable and x2 is continuous, then x1:x2 allows a different slope for each different level of x1.</li>
+<li>(x1 + x2)<sup>2</sup> is equivalent to x1 * x2 and x1 + x2 + x1:x2. </li>
+</ul>
+
+<p>For two-way ANOVA, we consider two factors as covariates. </p>
+
+<pre><code class="r"># a new covariate
+Trt = c(&quot;T1&quot;, &quot;T1&quot;, &quot;T2&quot;, &quot;T1&quot;, &quot;T2&quot;, &quot;T1&quot;, &quot;T1&quot;, &quot;T2&quot;, &quot;T2&quot;, &quot;T2&quot;, &quot;T1&quot;, &quot;T1&quot;, 
+    &quot;T2&quot;, &quot;T2&quot;, &quot;T1&quot;)
+# mean for each combination of Group and Trt levels
+tapply(Outcome, list(Group = Group, Treatment = Trt), mean)
+</code></pre>
+
+<pre><code>##      Treatment
+## Group    T1    T2
+##     A 18.67 22.00
+##     B 26.50 37.33
+##     C 17.67 18.50
+</code></pre>
+
+<pre><code class="r"># two-way ANOVA
+mylm.main = lm(Outcome ~ Group + Trt)
+anova(mylm.main)
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Outcome
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## Group      2    663     332   10.08 0.0033 **
+## Trt        1     90      90    2.73 0.1264   
+## Residuals 11    362      33                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<pre><code class="r"># two-way ANOVA with interaction
+mylm.int = lm(Outcome ~ Group + Trt + Group:Trt)
+anova(mylm.int)
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Outcome
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## Group      2    663     332   10.05 0.0051 **
+## Trt        1     90      90    2.73 0.1330   
+## Group:Trt  2     65      33    0.98 0.4104   
+## Residuals  9    297      33                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<pre><code class="r"># same as
+mylm.int = lm(Outcome ~ Group * Trt)
+anova(mylm.int)
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Outcome
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## Group      2    663     332   10.05 0.0051 **
+## Trt        1     90      90    2.73 0.1330   
+## Group:Trt  2     65      33    0.98 0.4104   
+## Residuals  9    297      33                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<h4>In R, the default is the sequential ANOVA</h4>
+
+<p>You may skip the following paragraph and go directly to the conclusion. </p>
+
+<p>When you have more than one factors, say x1 and  x2, as covariates in the model formula inside the &#39;lm&#39; command and the number of cells in the contingency table are unbalanced, the order they are entered matters in terms of the sum of squares (SS, think of this as &#39;signal&#39; of effect) and hence their test p-values. The reason is as follows. With a two-factor ANOVA, we want to know the pure effect x1 and x2. However, under an unbalanced setting, signals from x1 and x2 are not perfectly partitioned. Some signal might be from both x1 and x2. The default in R to deal with this issue is to add this ambigous signal to the SS of the first entered factor, i.e. x1 in the case of &#39;y ~ x1 + x2&#39;, so it is an exaggerated estimate for the exclusive effect of x1 we are interested in. On the other hand, the SS of x2 only contains the signal exclusively from x2 which is what we truly want. This partitioning option that R uses is called sequential SS (or Type I SS in the SAS software; there are also Type II, III (in SAS) and possibly more). Generalizing this to more factors, the individual test result is reliable for the last entered factor only. We should not judge true significance of the others with this particular ordering. </p>
+
+<p>In conclusion, </p>
+
+<ul>
+<li><p>When we have two or more factors and an unbalanced setting, the order the factors are entered in a model formula affects the test results for individual factors. </p></li>
+<li><p>In this case, the individual significance test result is valid only for the last entered factor in the model formula. Moreover, this last test is not affeced by ordering of all the preceding factors. </p></li>
+<li><p>With balanced setting, their is no such issue. </p></li>
+<li><p>Also for continuous type covariates, all the results are exactly the same regardless of their order in the model formula. </p></li>
+<li><p>In any case, ordering does not affect the significance test result of the model as a whole or the \( R^2 \) statistic. </p></li>
+<li><p>In the case of more than two factors and unbalaced setting, it is recommended to use this &#39;anova&#39; result only for testing the significace of the model as a whole (which is not affected by ordering) and not for dropping insignificant variables from the model. </p></li>
+<li><p>Also in this case, to reduce to a simper model by dropping insignificant variables, it is recommended to use the &#39;anova(smaller model, bigger model)&#39; command for comparing nested models.  </p></li>
+</ul>
+
+<h4>Comparison between nested models</h4>
+
+<pre><code class="r"># significance test for interaction
+anova(mylm.main, mylm.int)  # not significant
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: Outcome ~ Group + Trt
+## Model 2: Outcome ~ Group * Trt
+##   Res.Df RSS Df Sum of Sq    F Pr(&gt;F)
+## 1     11 362                         
+## 2      9 297  2        65 0.98   0.41
+</code></pre>
+
+<pre><code class="r"># significance test for Trt
+mylm.simple = lm(Outcome ~ Group)
+anova(mylm.simple, mylm.main)  # not significant
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: Outcome ~ Group
+## Model 2: Outcome ~ Group + Trt
+##   Res.Df RSS Df Sum of Sq    F Pr(&gt;F)
+## 1     12 452                         
+## 2     11 362  1        90 2.73   0.13
+</code></pre>
+
+<pre><code class="r"># take &#39;Outcome ~ Group&#39; as a final model.
+anova(mylm.simple)
+</code></pre>
+
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Outcome
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)   
+## Group      2    663     332    8.81 0.0044 **
+## Residuals 12    452      38                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+<h2>Chi-square tests</h2>
+
+<h3>Chi-squared test for homogeneity</h3>
+
+<p>Do Group A, B, and C have the same distribution of Perf? </p>
+
+<pre><code class="r">Perf = c(&quot;Good&quot;, &quot;Good&quot;, &quot;Good&quot;, &quot;Bad&quot;, &quot;Bad&quot;, &quot;Good&quot;, &quot;Bad&quot;, &quot;Bad&quot;, &quot;Bad&quot;, 
+    &quot;Bad&quot;, &quot;Bad&quot;, &quot;Bad&quot;, &quot;Bad&quot;, &quot;Good&quot;, &quot;Good&quot;)
+table(Group, Perf)
+</code></pre>
+
+<pre><code>##      Perf
+## Group Bad Good
+##     A   2    3
+##     B   4    1
+##     C   3    2
+</code></pre>
+
+<pre><code class="r">mychi = chisq.test(table(Group, Perf))
+</code></pre>
+
+<pre><code>## Warning: Chi-squared approximation may be incorrect
+</code></pre>
+
+<pre><code class="r">mychi
+</code></pre>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(Group, Perf)
+## X-squared = 1.667, df = 2, p-value = 0.4346
+</code></pre>
+
+<pre><code class="r">names(mychi)
+</code></pre>
+
+<pre><code>## [1] &quot;statistic&quot; &quot;parameter&quot; &quot;p.value&quot;   &quot;method&quot;    &quot;data.name&quot; &quot;observed&quot; 
+## [7] &quot;expected&quot;  &quot;residuals&quot; &quot;stdres&quot;
+</code></pre>
+
+<h3>Chi-squared test of independence</h3>
+
+<p>Number of people in each level of health condition, smokers versus non-smokers. Does smoking make a difference in health condition (are the two rows below independent)? </p>
+
+<pre><code class="r">smoker = rbind(smoke = c(12, 20, 31), nsmoke = c(10, 9, 12))
+colnames(smoker) = c(&quot;good&quot;, &quot;normal&quot;, &quot;bad&quot;)
+smoker
+</code></pre>
+
+<pre><code>##        good normal bad
+## smoke    12     20  31
+## nsmoke   10      9  12
+</code></pre>
+
+<pre><code class="r">chisq.test(smoker)
+</code></pre>
+
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  smoker
+## X-squared = 2.099, df = 2, p-value = 0.3501
+</code></pre>
+
+<h3>Chi-squared goodness of fit test</h3>
+
+<p>Number of rainy days each month. Does it rain evenly across months? </p>
+
+<pre><code class="r">rainy = c(2, 4, 5, 7, 10, 9, 12, 13, 6, 3, 5, 4)
+prop = c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)/365
+chisq.test(rainy, p = prop)
+</code></pre>
+
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  rainy
+## X-squared = 20.39, df = 11, p-value = 0.04031
+</code></pre>
+
+<h2>Exercise</h2>
+
+<ul>
+<li><p>For the above data of Group and Outcome, perform an independent two-sample t-test for between Groups B and C. Repeat for Groups A and C. </p></li>
+<li><p>For the built-in dataset &#39;PlantGrowth&#39;, perform one-way ANOVA for weight against group. </p></li>
+<li><p>For the built-in dataset &#39;mtcars&#39;, perform two-way ANOVA for mpg against gear and carb. </p></li>
+<li><p>Load the built-in dataset &#39;esoph&#39; and extract rows 51-54 (they only differ in tobgp and have other two values in common; agegp = 55-64 and alcgp =  40-79). Perform a chi-square test to see if tobgp has any effect on the cancer (you only need two columns ncases and ncontrol).  </p></li>
+</ul>
+
+</body>
+
+</html>
+
