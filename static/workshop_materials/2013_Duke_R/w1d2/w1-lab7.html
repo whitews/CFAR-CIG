@@ -593,7 +593,6 @@ anova(mylm.int)
 <li><p>When we have two or more factors and an unbalanced setting, the order the factors are entered in a model formula affects the test results for individual factors. </p></li>
 <li><p>In this case, the individual significance test result is valid only for the last entered factor in the model formula. Moreover, this last test is not affeced by ordering of all the preceding factors. </p></li>
 <li><p>With balanced setting, their is no such issue. </p></li>
-<li><p>Also for continuous type covariates, all the results are exactly the same regardless of their order in the model formula. </p></li>
 <li><p>In any case, ordering does not affect the significance test result of the model as a whole or the \( R^2 \) statistic. </p></li>
 <li><p>In the case of more than two factors and unbalaced setting, it is recommended to use this &#39;anova&#39; result only for testing the significace of the model as a whole (which is not affected by ordering) and not for dropping insignificant variables from the model. </p></li>
 <li><p>Also in this case, to reduce to a simper model by dropping insignificant variables, it is recommended to use the &#39;anova(smaller model, bigger model)&#39; command for comparing nested models.  </p></li>

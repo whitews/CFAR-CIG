@@ -137,14 +137,11 @@ In conclusion,
 
 * With balanced setting, their is no such issue. 
 
-* Also for continuous type covariates, all the results are exactly the same regardless of their order in the model formula. 
-
 * In any case, ordering does not affect the significance test result of the model as a whole or the $R^2$ statistic. 
 
 * In the case of more than two factors and unbalaced setting, it is recommended to use this 'anova' result only for testing the significace of the model as a whole (which is not affected by ordering) and not for dropping insignificant variables from the model. 
 
 * Also in this case, to reduce to a simper model by dropping insignificant variables, it is recommended to use the 'anova(smaller model, bigger model)' command for comparing nested models.  
-
 
 #### Comparison between nested models 
 ```{r}

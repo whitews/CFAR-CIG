@@ -2,83 +2,128 @@ Lab 9: Logistic regression (binary outcomes)
 ========================================================
 Simple logistic regression
 --------------------------------------------------------
-```{r fig.width=4, fig.height=4}
+### Model fitting with binary response
+```{r}
 Predictor = c(2, 4, 6, 10, 18, 19, 21, 22, 24, 40) # continuous
 Outcome = c("Good", "Good", "Good", "Bad", "Bad", "Good", "Bad", "Bad", "Bad", "Bad") # binary
 ```
 ```{r fig.width=4, fig.height=4}
 help(glm)
 ```
-### Coding with the binary response
 Response needs to be a factor with the first level denoting failure.
 ```{r fig.width=4, fig.height=4}
 # try this
 glm(Outcome ~ Predictor, family = "binomial"(link = "logit"))
-```
-```{r fig.width=4, fig.height=4}
 is.factor(Outcome)
-factor(Outcome) # levels in alphabetical order
+factor(Outcome) # by default, levels are in alphabetical order
+# try this
 factor(Outcome, levels = c("Good", "Bad"))
+# if "Bad" is considered as failure, use this
 Outcome = factor(Outcome) # first level as failure
 myglm = glm(Outcome ~ Predictor, family = "binomial")
 sglm = summary(myglm)
 sglm
 names(sglm)
 sglm$coef 
+```
+The fitted regression equation is given by
+```
+Log odds = `r round(coef(sglm)[1],3)` - `r abs(coef(sglm))[2]` * Predictor
+```
+or equivalently
+```
+Odds = exp(log odds)
+     = exp(`r round(coef(sglm)[1],3)` - `r abs(coef(sglm))[2]` * Predictor)
+```
+or
+```
+Probability of "Good" = 1 / [1 + exp(-log odds)]
+                      = 1 / [1 + exp(-`r round(coef(sglm)[1],3)` + `r abs(coef(sglm))[2]` * Predictor)]
+```
+Since exp(`r coef(sglm)[2]`) = `r round(exp(coef(sglm)[2]),3)`, we will see `r round((1-exp(coef(sglm)[2]))*100,1)`% decrease in the odds of having "Good" for a one-unit increase in `Predictor`.
+```{r fig.width=4, fig.height=4}
+# confidence intervals for the coefficient estimates
+confint(myglm)
+```
+
+```{r fig.width=4, fig.height=4}
+# fitted curve
 plot(Predictor, Outcome == "Good")
 x = seq(2,40, 0.1)
 lines(x, predict(myglm, newdata = data.frame(Predictor = x), type = "response")) 
 ```
-
-### Coding with tabulated response
+### Model fitting with tabulated response
 Suppose the outcome is the same as before but the predictor looks like this:  
 ```{r fig.width=4, fig.height=4}
 Predictor2 = c(10, 10, 10, 10, 18, 18, 18, 24, 24, 24)
 ```
-Since there are ties, we can tabulate the data. 
-```{r fig.width=4, fig.height=4}
-(tb <- table(Predictor2, Outcome)) # two-column matrix of success and failure counts
-```
-We will act as if the original data were given in this tabulated form. The vector of row names will be used as covariate. 
-```{r fig.width=4, fig.height=4}
-rownames(tb) # charactor
-(Predictor3 <- as.numeric(rownames(tb))) # numeric
-```
-#### Response as two-column matrix
-Response needs to be specified as a two-column matrix with the columns giving the numbers of successes and failures. 
-```{r fig.width=4, fig.height=4}
-myglm2 = glm(tb ~ Predictor3, family = binomial("logit")) 
+If we fit a logistic regression model as above, 
+```{r}
+myglm2 = glm(Outcome ~ Predictor2, family = "binomial")
 summary(myglm2)
 ```
-#### Response as a vector (with weights)
+Since there are ties, we can tabulate the data. 
+```{r fig.width=4, fig.height=4}
+Outcome.tb = table(Predictor2, Outcome)
+Outcome.tb # two-column matrix of success and failure counts
+```
+Now we will act as if the original data were given in this tabulated form with three rows. The vector of row names will be used as covariate. 
+```{r fig.width=4, fig.height=4}
+# try this
+rownames(Outcome.tb) # charactor
+# convert to numeric
+Predictor2.tb = as.numeric(rownames(Outcome.tb))
+Predictor2.tb # numeric now
+```
+There are two ways of using the 'glm' command for tabulated data. 
+#### 1. With a two-column matrix
+Response needs to be specified as a two-column matrix with the columns giving the numbers of successes and failures. 
+```{r fig.width=4, fig.height=4}
+myglm2 = glm(Outcome.tb ~ Predictor2.tb, family = binomial("logit")) 
+summary(myglm2)
+```
+#### 2. With a vector with weights
 Response needs to be specified as a vector of proportions of successes. Also need to use successes+failures counts as weights. 
 ```{r fig.width=4, fig.height=4}
 # row proportions 
-(tb2 <- prop.table(tb, 1)) 
+(Outcome.tb.prop <- prop.table(Outcome.tb, 1)) 
 # same as 
-tb/rowSums(tb)
-myglm3 = glm(tb2[,2] ~ Predictor3, weights = rowSums(tb), family = binomial("logit")) # same as myglm2, give proportions and weigh by counts of success+failure
+Outcome.tb/rowSums(Outcome.tb)
+myglm3 = glm(Outcome.tb.prop[,2] ~ Predictor2.tb, weights = rowSums(Outcome.tb), family = binomial("logit")) # same as myglm2, give proportions and weigh by counts of success+failure
 summary(myglm3)
 ```
 
 
-```{r fig.width=4, fig.height=4}
-sglm3 = summary(myglm2)
-sglm3$coef
+Multiple logistic regression
+--------------------------------------------------------
+```{r}
+data(birthwt, package = 'MASS')
+help(birthwt, package = 'MASS')
+head(birthwt)
+attach(birthwt)
+bwt = data.frame(low = factor(low), lwt, race = factor(race),  smoke = factor(smoke), ht = factor(ht), ui = factor(ui))
+detach(birthwt)
+myglm.multi = glm(low ~ ., family = binomial, data = bwt)
+summary(myglm.multi)
 ```
-```{r fig.width=4, fig.height=4}
-plot(Predictor, Outcome == "Good")
-x = seq(2,40, 0.1)
-lines(x, predict(myglm3, newdata = data.frame(Predictor3 = x), type = "response"))
+ 
+```{r echo = FALSE}
+co = coef(myglm.multi)
 ```
 
-Multivariate logistic regression
---------------------------------------------------------
-Similar to multivariate linear regression
+* The log odds of low birth weight (`low` = 1) increases by `r co[2]` (or decreases by `r abs(co[2])`) for a one-unit increase in `lwt`, with all other variables being held at fixed values. 
+
+* In other words, the odds of low birth weight increases by a factor of exp(`r co[2]`)=`r exp(co[2])` (or decreases by `r round((1-exp(co[2]))*100, 1)`%). 
+
+* The odds of low birth weight is higher in the smoker group (`smoke`=1) than in the non-smoker group (`smoke`=0) by a factor of exp(`r co[5]`)=`r exp(co[5])` or by `r round((exp(co[5])-1)*100,1)`%.
 
 Exercise
 --------------------------------------------------------
-* Using the 'esoph' dataset, perform a logistic regression of the cancer rate against agegp, alcgp and tobgp.  
+* Using the 'eagles' dataset in the package 'MASS', perform a logistic regression of the success rate against `P` (size of pirating eagle), `A` (age of pirating eagle), and `V` (size of victim eagle). 
+
+* Interprete coefficient estimates. 
+
+* Predict the success probability for an attempt with average `P`, `A`, and `V` values. 
 
 
 
