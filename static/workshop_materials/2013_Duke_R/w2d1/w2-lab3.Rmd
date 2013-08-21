@@ -1,0 +1,59 @@
+Lab 3: Power analysis and sample size determination
+========================================================
+## Contingency table
+        |$H_0$ is true	| $H_0$ is false |
+:------ | :------ | :----- |
+**Reject $H_0$** |	 Type I error | Correct |
+      | False positive	| True positive |    
+**Fail to reject $H_0$** |	Correct | Type II error |
+    | True negative	| False negative |
+
+## Components of power analysis
+
+* Sample size $n$
+
+* Effect size ES
+
+* Significance level $\alpha$
+= P(Type I error) = false positive rate
+
+* Power $\beta$
+= 1 $-$ P(Type II error) = true positive rate
+
+One is expressed as a function of the other three. Therefore, given any three, we can calculate the fourth.
+
+Power increases as sample size, effect size, or significance level increases.  
+
+## Using the 'pwr' package
+The `pwr` package has functions for power analysis. 
+```{r eval = FALSE}
+# (install and then) load the 'pwr' package
+library(pwr)
+```
+### t-tests
+```{r eval = FALSE}
+# equal sample sizes
+pwr.t.test(n = NULL, d = NULL, sig.level = 0.05, power = NULL, type = c("two.sample", "one.sample", "paired"), alternative = c("two.sided", "less","greater"))
+```
+```{r eval = FALSE}
+# unequal sample sizes
+pwr.t2n.test(n1 = NULL, n2 = NULL, d = NULL, sig.level = 0.05, power = NULL, alternative = c("two.sided", "less","greater"))
+```
+
+* `n` is the number of observations per sample.
+
+* The `sig.level` default to 0.05 instead of `NULL`. Therefore, to calculate the significance level given the other three (`n`, `d`, and `power`), use the option `sig.level = NULL`.  
+### Other tests 
+http://www.statmethods.net/stats/power.html
+
+## Cohen's recommendation for effect sizes
+### t-tests 
+$$d=\frac{|\mu_1-\mu_2|}{\sigma}$$ 	
+with levels small = 0.2, medium = 0.5, large = 0.8. 
+### Other tests, 
+http://www.statmethods.net/stats/power.html
+
+## Exercise 
+* For a one-sided independent two-sample t-test, what is the sample size needed in each group to obtain a power of 0.8, when the significance level is set to be 0.01 and an effect size is 0.5 (medium)?
+
+* With the sample size obtained above and with the significance level unchanged (0.01), what is the power when the effect size is 0.8 (large)? 

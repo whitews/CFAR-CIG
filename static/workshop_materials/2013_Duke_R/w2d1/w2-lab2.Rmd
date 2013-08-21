@@ -1,0 +1,82 @@
+Lab 2: Wilcoxon rank-sum test (a nonparametric hypothesis test)
+========================================================
+## Assumptions for independent two-sample t-test
+* Two groups are independent 
+
+* Each group comes from a normal distiribution (with equal/nonequal variance)
+
+## Wilcoxon rank-sum test 
+* Also called Mann–Whitney U test, Mann–Whitney–Wilcoxon (MWW), or Wilcoxon–Mann–Whitney test
+
+* Nonparametric equivalent of the independent two-sample t-test 
+
+* Assumes independence of two groups, but not normality
+
+* Assumes the distributions of both groups are equal under the null hypothesis
+
+* Robust to outliers
+
+* Invariant under any rank-preserving transformation
+
+* More efficient than the t-test on nonnormal distributions
+
+* When normality holds, the rank-sum test is nearly as efficient as the t-test. 
+
+```{r fig.width=4, fig.height=4}
+Group = c(rep("A", 5), rep("B", 5)) # same as rep(c("A", "B"), rep(5, 2))
+Outcome = c(16, 18, 20, 22, 24, 25, 28, 29, 33, 34)
+boxplot(Outcome ~ Group)
+t.test(Outcome ~ Group)
+```
+The t.test says two group means are significanly different. Suppose we have an outlier as follow. 
+```{r fig.width=4, fig.height=4}
+# what if no outlier
+Outcome.o = Outcome
+Outcome.o[10] = 60
+boxplot(Outcome.o ~ Group)
+t.test(Outcome.o ~ Group)
+```
+Now the t-test reaches the opposite conclusion. The rank-sum test is robust to outliers giving exactly the same test statistic and p-value.  
+```{r}
+wilcox.test(Outcome ~ Group)
+wilcox.test(Outcome.o ~ Group)
+```
+In general, the rank-sum test is invariant under any rank-preserving transformation. 
+```{r}
+Outcome.log = log(Outcome)
+wilcox.test(Outcome.log ~ Group)
+Outcome.rank = rank(Outcome)
+Outcome.rank
+wilcox.test(Outcome.rank ~ Group)
+```
+You can use the `alternative="less"` or `alternative="greater"` option to specify a one-sided test.
+## More nonparametric tests 
+### Paired two-sample rank-sum test
+Use `wilcox.test` with the option `paired = TRUE`.  
+### One-way ANOVA Kruskal-Wallis test 
+Use `kruskal.test` instead of `lm`. 
+
+## Exercise 
+
+A dataset from http://lib.stat.cmu.edu/DASL/: 
+```
+Datafile Name: Clouds
+
+Story Names: Cloud Seeding
+
+Description: Rainfall from Cloud-Seeding. The rainfall in acre-feet from 52 clouds 26 of which were chosen at random and seeded with silver nitrate.
+
+Number of cases: 26
+
+Variable Names:
+Unseeded_Clouds: Amount of rainfall from unseeded clouds (in acre-feet)
+Seeded_Clouds: Amount of rainfall from seeded clouds with silver nitrate (in acre-feet)
+```
+
+* For this dataset ('Clouds.txt'), make a side-by-side box plot for rainfall of the two groups. 
+
+* Perform a two-sample t-test. One-sided or two-sided? 
+
+* Perform a Wilcoxon rank-sum test. 
+
+* Repeat the first two problems after taking the (natural) log of rainfall. 
