@@ -131,7 +131,7 @@ lines(density(sc$STrial1), lty = 2) # add a dotted density curve
 #### Box plots
 ```{r fig.width=4, fig.height=4}
 boxplot(sc$STrial2)
-boxplot(sc$STrial2, main = "Box plot for S-Trial 2", ylab = "Time (second)") # Add title and y-axis label
+boxplot(sc$STrial2, main = "Box plot for S-Trial 2", ylab = "Time (second)") # Add main title and y-axis title
 rug(sc$STrial2, side = 2, col = "red") # add tick marks
 ```
 
@@ -244,7 +244,7 @@ help(plot)
 
 * sub: a sub title
 
-* xlab, ylab: a label for the x-, y- axis
+* xlab, ylab: a title for the x-, y- axis
 
 * axes: a logical value indicating whether both axes should be drawn on the plot. Use "xaxt" or "yaxt" to suppress just one of the 
 
@@ -293,7 +293,7 @@ plot(x, tan(x), type = 'l')
 Restoring original settings (from Quick-R http://www.statmethods.net/advgraphs/parameters.html): 
 ```{r eval = F}
 par()              # view current settings
-opar <- par()      # make a copy of current settings
+opar = par()      # make a copy of current settings
 par(col.lab="red") # red x and y labels 
 hist(mtcars$mpg)   # create a plot with these new settings 
 par(opar)          # restore original settings
