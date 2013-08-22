@@ -62,8 +62,8 @@ length(which(is.na(dat)))
 ```
 ### setting NA to a value
 ```{r}
-df[is.na(dat)] = 99
-df
+dat[is.na(dat)] = 99
+dat
 ```
 ### setting elements to NA
 ```{r}
@@ -118,7 +118,7 @@ order(-x, y)
 mtcars.s = mtcars[order(-mtcars$cyl, -mtcars$gear), ]
 head(mtcars.s)
 # compare with the original data
-head(mtcars[, ])
+head(mtcars)
 ```
 
 ## Subsetting
@@ -138,8 +138,6 @@ mtcars[1:5, -c(2, 4)]
 mtcars[1:5, -c("cyl", "hp")]
 # instead, this works
 mtcars[1:5, setdiff(names(mtcars), c("cyl", "hp"))]
-# subsetting rows
-# subsetting variables setdiff %in%
 ```
 ### which
 ```{r}
