@@ -123,7 +123,7 @@ Exercise
 
 * Interprete coefficient estimates. 
 
-* Predict the success probability for an attempt with average `P`, `A`, and `V` values. 
+* Predict the success probability for an attempt with `P=L`, `A=I`, and `V=S`. 
 
 
 

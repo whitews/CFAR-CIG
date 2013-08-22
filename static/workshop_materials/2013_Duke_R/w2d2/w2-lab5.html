@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Lab 5: Data manipulation and exploratory data analysis</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Lab 5: Data manipulation and exploratory data analysis</h1>
+
+<h2>Names</h2>
+
+<h3>preserving original names</h3>
+
+<pre><code class="r"># default: syntactically invalid variable names are adjusted
+scent1 = read.table(&quot;scent_orig.txt&quot;, sep = &quot;\t&quot;, head = T)
+head(scent1)
+</code></pre>
+
+<pre><code>##   ID..Sex Smoker Opinion Age Order U.Trial.1 U.Trial.2 U.Trial.3 S.Trial.1
+## 1       M      N     pos  23     1      38.4      27.7      25.7      53.1
+## 2       F      Y     neg  43     2      46.2      57.2      41.9      54.7
+## 3       M      N     pos  43     1      72.5      57.9      51.9      74.2
+## 4       M      N     neg  32     2      38.0      38.0      32.2      49.6
+## 5       M      N     neg  15     1      82.8      57.9      64.7      53.6
+## 6       F      Y     pos  37     2      33.9      32.0      31.4      51.3
+##   S.Trial.2 S.Trial.3
+## 1      30.6      30.2
+## 2      43.3      56.7
+## 3      53.4      42.4
+## 4      37.4      34.4
+## 5      48.6      44.8
+## 6      35.5      42.9
+</code></pre>
+
+<pre><code class="r"># with option check.names = FALSE
+scent2 = read.table(&quot;scent_orig.txt&quot;, sep = &quot;\t&quot;, head = T, check.names = F)
+head(scent2)
+</code></pre>
+
+<pre><code>##   ID  Sex Smoker Opinion Age Order U-Trial 1 U-Trial 2 U-Trial 3 S-Trial 1
+## 1       M      N     pos  23     1      38.4      27.7      25.7      53.1
+## 2       F      Y     neg  43     2      46.2      57.2      41.9      54.7
+## 3       M      N     pos  43     1      72.5      57.9      51.9      74.2
+## 4       M      N     neg  32     2      38.0      38.0      32.2      49.6
+## 5       M      N     neg  15     1      82.8      57.9      64.7      53.6
+## 6       F      Y     pos  37     2      33.9      32.0      31.4      51.3
+##   S-Trial 2 S-Trial 3
+## 1      30.6      30.2
+## 2      43.3      56.7
+## 3      53.4      42.4
+## 4      37.4      34.4
+## 5      48.6      44.8
+## 6      35.5      42.9
+</code></pre>
+
+<h3>retrieving or setting names</h3>
+
+<ul>
+<li><p><code>dimnames</code>, <code>colnames</code>, <code>rownames</code>: work with general matrices</p></li>
+<li><p><code>names</code>, <code>row.names</code>: methods for data frames</p></li>
+<li><p><code>names</code> also works with vectors</p></li>
+</ul>
+
+<pre><code class="r">### 1. retrieving names:
+
+# row and column names
+dimnames(scent2)
+</code></pre>
+
+<pre><code>## [[1]]
+##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [15] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot;
+## 
+## [[2]]
+##  [1] &quot;ID  Sex&quot;   &quot;Smoker&quot;    &quot;Opinion&quot;   &quot;Age&quot;       &quot;Order&quot;    
+##  [6] &quot;U-Trial 1&quot; &quot;U-Trial 2&quot; &quot;U-Trial 3&quot; &quot;S-Trial 1&quot; &quot;S-Trial 2&quot;
+## [11] &quot;S-Trial 3&quot;
+</code></pre>
+
+<pre><code class="r"># row names
+dimnames(scent2)[[1]]
+</code></pre>
+
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [15] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot;
+</code></pre>
+
+<pre><code class="r"># same as
+rownames(scent2)
+</code></pre>
+
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [15] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot;
+</code></pre>
+
+<pre><code class="r"># also same as
+row.names(scent2)  # only for data frames
+</code></pre>
+
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [15] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot;
+</code></pre>
+
+<pre><code class="r"># column names
+dimnames(scent2)[[2]]
+</code></pre>
+
+<pre><code>##  [1] &quot;ID  Sex&quot;   &quot;Smoker&quot;    &quot;Opinion&quot;   &quot;Age&quot;       &quot;Order&quot;    
+##  [6] &quot;U-Trial 1&quot; &quot;U-Trial 2&quot; &quot;U-Trial 3&quot; &quot;S-Trial 1&quot; &quot;S-Trial 2&quot;
+## [11] &quot;S-Trial 3&quot;
+</code></pre>
+
+<pre><code class="r"># same as
+colnames(scent2)
+</code></pre>
+
+<pre><code>##  [1] &quot;ID  Sex&quot;   &quot;Smoker&quot;    &quot;Opinion&quot;   &quot;Age&quot;       &quot;Order&quot;    
+##  [6] &quot;U-Trial 1&quot; &quot;U-Trial 2&quot; &quot;U-Trial 3&quot; &quot;S-Trial 1&quot; &quot;S-Trial 2&quot;
+## [11] &quot;S-Trial 3&quot;
+</code></pre>
+
+<pre><code class="r"># also same as
+names(scent2)  # only for data frames and vectors
+</code></pre>
+
+<pre><code>##  [1] &quot;ID  Sex&quot;   &quot;Smoker&quot;    &quot;Opinion&quot;   &quot;Age&quot;       &quot;Order&quot;    
+##  [6] &quot;U-Trial 1&quot; &quot;U-Trial 2&quot; &quot;U-Trial 3&quot; &quot;S-Trial 1&quot; &quot;S-Trial 2&quot;
+## [11] &quot;S-Trial 3&quot;
+</code></pre>
+
+<pre><code class="r">### 2. setting row or column names: assign a character vector
+
+rownames(scent2) = paste(&quot;row&quot;, 1:nrow(scent2), sep = &quot;.&quot;)
+rownames(scent2)
+</code></pre>
+
+<pre><code>##  [1] &quot;row.1&quot;  &quot;row.2&quot;  &quot;row.3&quot;  &quot;row.4&quot;  &quot;row.5&quot;  &quot;row.6&quot;  &quot;row.7&quot; 
+##  [8] &quot;row.8&quot;  &quot;row.9&quot;  &quot;row.10&quot; &quot;row.11&quot; &quot;row.12&quot; &quot;row.13&quot; &quot;row.14&quot;
+## [15] &quot;row.15&quot; &quot;row.16&quot; &quot;row.17&quot; &quot;row.18&quot; &quot;row.19&quot; &quot;row.20&quot; &quot;row.21&quot;
+</code></pre>
+
+<h2>Missing values</h2>
+
+<h3>checking missingness</h3>
+
+<pre><code class="r"># a data frame containing missing values
+dat = data.frame(v1 = c(1, 2, 3, NA), v2 = c(5, NaN, 7, 8), v3 = 9:12)
+dat
+</code></pre>
+
+<pre><code>##   v1  v2 v3
+## 1  1   5  9
+## 2  2 NaN 10
+## 3  3   7 11
+## 4 NA   8 12
+</code></pre>
+
+<pre><code class="r"># check missingness
+is.na(dat)  # includes NaN!
+</code></pre>
+
+<pre><code>##         v1    v2    v3
+## [1,] FALSE FALSE FALSE
+## [2,] FALSE  TRUE FALSE
+## [3,] FALSE FALSE FALSE
+## [4,]  TRUE FALSE FALSE
+</code></pre>
+
+<pre><code class="r"># TRUE indices only
+which(is.na(dat))
+</code></pre>
+
+<pre><code>## [1] 4 6
+</code></pre>
+
+<pre><code class="r"># return array indices
+which(is.na(dat), arr.ind = T)
+</code></pre>
+
+<pre><code>##      row col
+## [1,]   4   1
+## [2,]   2   2
+</code></pre>
+
+<pre><code class="r"># any missing?
+any(is.na(dat))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r"># number of missing values
+sum(is.na(dat))
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<pre><code class="r"># same as
+length(which(is.na(dat)))
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<h3>setting NA to a value</h3>
+
+<pre><code class="r">df[is.na(dat)] = 99
+</code></pre>
+
+<pre><code>## Error: object of type &#39;closure&#39; is not subsettable
+</code></pre>
+
+<pre><code class="r">df
+</code></pre>
+
+<pre><code>## function (x, df1, df2, ncp, log = FALSE) 
+## {
+##     if (missing(ncp)) 
+##         .External(C_df, x, df1, df2, log)
+##     else .External(C_dnf, x, df1, df2, ncp, log)
+## }
+## &lt;bytecode: 0x1035a8200&gt;
+## &lt;environment: namespace:stats&gt;
+</code></pre>
+
+<h3>setting elements to NA</h3>
+
+<pre><code class="r"># a matrix without NA
+dat2 = matrix(1:12, nrow = 4)
+dat2
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+## [3,]    3    7   11
+## [4,]    4    8   12
+</code></pre>
+
+<pre><code class="r">is.na(dat2) = c(4, 6)
+dat2
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2   NA   10
+## [3,]    3    7   11
+## [4,]   NA    8   12
+</code></pre>
+
+<h3>removing NA</h3>
+
+<pre><code class="r"># complete rows only
+complete.cases(dat2)
+</code></pre>
+
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE
+</code></pre>
+
+<pre><code class="r">dat2[complete.cases(dat2), ]
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    3    7   11
+</code></pre>
+
+<pre><code class="r"># same as
+na.omit(dat2)
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    3    7   11
+## attr(,&quot;na.action&quot;)
+## [1] 4 2
+## attr(,&quot;class&quot;)
+## [1] &quot;omit&quot;
+</code></pre>
+
+<pre><code class="r"># complete columns only
+complete.cases(t(dat2))
+</code></pre>
+
+<pre><code>## [1] FALSE FALSE  TRUE
+</code></pre>
+
+<pre><code class="r">dat2[, complete.cases(t(dat2))]
+</code></pre>
+
+<pre><code>## [1]  9 10 11 12
+</code></pre>
+
+<pre><code class="r"># same as above, retaining the number of dimensions
+dat2[, complete.cases(t(dat2)), drop = F]
+</code></pre>
+
+<pre><code>##      [,1]
+## [1,]    9
+## [2,]   10
+## [3,]   11
+## [4,]   12
+</code></pre>
+
+<pre><code class="r"># error with NA
+mean(dat2)
+</code></pre>
+
+<pre><code>## [1] NA
+</code></pre>
+
+<pre><code class="r"># with NA removed
+mean(dat2, na.rm = T)
+</code></pre>
+
+<pre><code>## [1] 6.8
+</code></pre>
+
+<h2>Sorting</h2>
+
+<ul>
+<li><p><code>sort</code> to sort a vector</p></li>
+<li><p><code>order</code> to sort data frames, etc. It returns the permutation which orders the data. </p></li>
+</ul>
+
+<h3>sort</h3>
+
+<pre><code class="r">x = sample(1:4, 10, replace = T)
+x
+</code></pre>
+
+<pre><code>##  [1] 4 3 2 3 3 3 1 4 1 4
+</code></pre>
+
+<pre><code class="r"># sort in ascending order
+sort(x)
+</code></pre>
+
+<pre><code>##  [1] 1 1 2 3 3 3 3 4 4 4
+</code></pre>
+
+<pre><code class="r"># sort in descending order
+sort(x, decreasing = T)
+</code></pre>
+
+<pre><code>##  [1] 4 4 4 3 3 3 3 2 1 1
+</code></pre>
+
+<h3>order</h3>
+
+<pre><code class="r">y = sample(1:4, 10, replace = T)
+cbind(x, y)
+</code></pre>
+
+<pre><code>##       x y
+##  [1,] 4 2
+##  [2,] 3 4
+##  [3,] 2 1
+##  [4,] 3 3
+##  [5,] 3 3
+##  [6,] 3 3
+##  [7,] 1 4
+##  [8,] 4 3
+##  [9,] 1 1
+## [10,] 4 1
+</code></pre>
+
+<pre><code class="r"># permutation that sorts x
+order(x)
+</code></pre>
+
+<pre><code>##  [1]  7  9  3  2  4  5  6  1  8 10
+</code></pre>
+
+<pre><code class="r"># use y for breaking ties
+order(x, y)
+</code></pre>
+
+<pre><code>##  [1]  9  7  3  4  5  6  2 10  1  8
+</code></pre>
+
+<pre><code class="r"># minus sign for descending order
+order(-x, y)
+</code></pre>
+
+<pre><code>##  [1] 10  1  8  4  5  6  2  3  9  7
+</code></pre>
+
+<pre><code class="r"># sort data frame by cyl and then gear
+mtcars.s = mtcars[order(-mtcars$cyl, -mtcars$gear), ]
+head(mtcars.s)
+</code></pre>
+
+<pre><code>##                    mpg cyl  disp  hp drat   wt  qsec vs am gear carb
+## Ford Pantera L    15.8   8 351.0 264 4.22 3.17 14.50  0  1    5    4
+## Maserati Bora     15.0   8 301.0 335 3.54 3.57 14.60  0  1    5    8
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.44 17.02  0  0    3    2
+## Duster 360        14.3   8 360.0 245 3.21 3.57 15.84  0  0    3    4
+## Merc 450SE        16.4   8 275.8 180 3.07 4.07 17.40  0  0    3    3
+## Merc 450SL        17.3   8 275.8 180 3.07 3.73 17.60  0  0    3    3
+</code></pre>
+
+<pre><code class="r"># compare with the original data
+head(mtcars[, ])
+</code></pre>
+
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+<h2>Subsetting</h2>
+
+<h3>Using indices</h3>
+
+<pre><code class="r"># extracting rows
+mtcars[mtcars$gear == 4 &amp; mtcars$carb == 1, ]
+</code></pre>
+
+<pre><code>##                 mpg cyl  disp hp drat    wt  qsec vs am gear carb
+## Datsun 710     22.8   4 108.0 93 3.85 2.320 18.61  1  1    4    1
+## Fiat 128       32.4   4  78.7 66 4.08 2.200 19.47  1  1    4    1
+## Toyota Corolla 33.9   4  71.1 65 4.22 1.835 19.90  1  1    4    1
+## Fiat X1-9      27.3   4  79.0 66 4.08 1.935 18.90  1  1    4    1
+</code></pre>
+
+<pre><code class="r"># extracting columns
+mtcars[1:5, c(2, 4)]
+</code></pre>
+
+<pre><code>##                   cyl  hp
+## Mazda RX4           6 110
+## Mazda RX4 Wag       6 110
+## Datsun 710          4  93
+## Hornet 4 Drive      6 110
+## Hornet Sportabout   8 175
+</code></pre>
+
+<pre><code class="r"># same as
+mtcars[1:5, c(&quot;cyl&quot;, &quot;hp&quot;)]
+</code></pre>
+
+<pre><code>##                   cyl  hp
+## Mazda RX4           6 110
+## Mazda RX4 Wag       6 110
+## Datsun 710          4  93
+## Hornet 4 Drive      6 110
+## Hornet Sportabout   8 175
+</code></pre>
+
+<pre><code class="r"># also same as
+mtcars[1:5, names(mtcars) %in% c(&quot;v1&quot;, &quot;v2&quot;, &quot;cyl&quot;, &quot;hp&quot;, &quot;v3&quot;)]
+</code></pre>
+
+<pre><code>##                   cyl  hp
+## Mazda RX4           6 110
+## Mazda RX4 Wag       6 110
+## Datsun 710          4  93
+## Hornet 4 Drive      6 110
+## Hornet Sportabout   8 175
+</code></pre>
+
+<pre><code class="r"># use the minus sign for exclusion
+mtcars[1:5, -c(2, 4)]
+</code></pre>
+
+<pre><code>##                    mpg disp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0  160 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0  160 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8  108 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4  258 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7  360 3.15 3.440 17.02  0  0    3    2
+</code></pre>
+
+<pre><code class="r"># but this does not work
+mtcars[1:5, -c(&quot;cyl&quot;, &quot;hp&quot;)]
+</code></pre>
+
+<pre><code>## Error: invalid argument to unary operator
+</code></pre>
+
+<pre><code class="r"># instead, this works
+mtcars[1:5, setdiff(names(mtcars), c(&quot;cyl&quot;, &quot;hp&quot;))]
+</code></pre>
+
+<pre><code>##                    mpg disp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0  160 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0  160 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8  108 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4  258 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7  360 3.15 3.440 17.02  0  0    3    2
+</code></pre>
+
+<pre><code class="r"># subsetting rows subsetting variables setdiff %in%
+</code></pre>
+
+<h3>which</h3>
+
+<pre><code class="r">which(mtcars$gear == 4 &amp; mtcars$carb == 1)
+</code></pre>
+
+<pre><code>## [1]  3 18 20 26
+</code></pre>
+
+<pre><code class="r">which(mtcars == 6)
+</code></pre>
+
+<pre><code>## [1]  33  34  36  38  42  43  62 350
+</code></pre>
+
+<pre><code class="r">which(mtcars == 6, arr.ind = T)
+</code></pre>
+
+<pre><code>##                row col
+## Mazda RX4        1   2
+## Mazda RX4 Wag    2   2
+## Hornet 4 Drive   4   2
+## Valiant          6   2
+## Merc 280        10   2
+## Merc 280C       11   2
+## Ferrari Dino    30   2
+## Ferrari Dino    30  11
+</code></pre>
+
+<pre><code class="r">which.max(mtcars$mpg)
+</code></pre>
+
+<pre><code>## [1] 20
+</code></pre>
+
+<h3>subset</h3>
+
+<pre><code class="r">subset(mtcars, mtcars$am == 1 &amp; mtcars$cyl == 8)
+</code></pre>
+
+<pre><code>##                 mpg cyl disp  hp drat   wt qsec vs am gear carb
+## Ford Pantera L 15.8   8  351 264 4.22 3.17 14.5  0  1    5    4
+## Maserati Bora  15.0   8  301 335 3.54 3.57 14.6  0  1    5    8
+</code></pre>
+
+<pre><code class="r">subset(mtcars, mtcars$am == 1 &amp; mtcars$cyl == 8, select = mpg:hp)
+</code></pre>
+
+<pre><code>##                 mpg cyl disp  hp
+## Ford Pantera L 15.8   8  351 264
+## Maserati Bora  15.0   8  301 335
+</code></pre>
+
+<h2>Combining</h2>
+
+<ul>
+<li><p><code>rbind</code>, <code>cbind</code> to combine a seqence of vector, matrix or data frames by rows or columns</p></li>
+<li><p><code>merge</code> to merge two data frames by common columns or row names</p></li>
+</ul>
+
+<h3>By assignment</h3>
+
+<pre><code class="r">datxy = data.frame(x, y)
+datxy$z = datxy$x + datxy$y
+datxy
+</code></pre>
+
+<pre><code>##    x y z
+## 1  4 2 6
+## 2  3 4 7
+## 3  2 1 3
+## 4  3 3 6
+## 5  3 3 6
+## 6  3 3 6
+## 7  1 4 5
+## 8  4 3 7
+## 9  1 1 2
+## 10 4 1 5
+</code></pre>
+
+<h3>rbind, cbind</h3>
+
+<pre><code class="r"># combine by rows
+rbind(x, y)
+</code></pre>
+
+<pre><code>##   [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## x    4    3    2    3    3    3    1    4    1     4
+## y    2    4    1    3    3    3    4    3    1     1
+</code></pre>
+
+<pre><code class="r"># combine by columns
+cbind(x, y)
+</code></pre>
+
+<pre><code>##       x y
+##  [1,] 4 2
+##  [2,] 3 4
+##  [3,] 2 1
+##  [4,] 3 3
+##  [5,] 3 3
+##  [6,] 3 3
+##  [7,] 1 4
+##  [8,] 4 3
+##  [9,] 1 1
+## [10,] 4 1
+</code></pre>
+
+<pre><code class="r"># similar to
+data.frame(x, y)
+</code></pre>
+
+<pre><code>##    x y
+## 1  4 2
+## 2  3 4
+## 3  2 1
+## 4  3 3
+## 5  3 3
+## 6  3 3
+## 7  1 4
+## 8  4 3
+## 9  1 1
+## 10 4 1
+</code></pre>
+
+<pre><code class="r"># combine a data frame and a vector
+col125.A = cbind(mtcars[, 1:2], mtcars[, 5])
+col125.A[1:5, ]
+</code></pre>
+
+<pre><code>##                    mpg cyl mtcars[, 5]
+## Mazda RX4         21.0   6        3.90
+## Mazda RX4 Wag     21.0   6        3.90
+## Datsun 710        22.8   4        3.85
+## Hornet 4 Drive    21.4   6        3.08
+## Hornet Sportabout 18.7   8        3.15
+</code></pre>
+
+<pre><code class="r"># assign a name
+col125.B = cbind(mtcars[, 1:2], drat = mtcars[, 5])
+col125.B[1:5, ]
+</code></pre>
+
+<pre><code>##                    mpg cyl drat
+## Mazda RX4         21.0   6 3.90
+## Mazda RX4 Wag     21.0   6 3.90
+## Datsun 710        22.8   4 3.85
+## Hornet 4 Drive    21.4   6 3.08
+## Hornet Sportabout 18.7   8 3.15
+</code></pre>
+
+<pre><code class="r"># data.frame also works
+data.frame(mtcars[, 1:2], drat = mtcars[, 5])[1:5, ]
+</code></pre>
+
+<pre><code>##                    mpg cyl drat
+## Mazda RX4         21.0   6 3.90
+## Mazda RX4 Wag     21.0   6 3.90
+## Datsun 710        22.8   4 3.85
+## Hornet 4 Drive    21.4   6 3.08
+## Hornet Sportabout 18.7   8 3.15
+</code></pre>
+
+<pre><code class="r"># same as
+col125.C = mtcars[, c(1:2, 5)]
+col125.C[1:5, ]
+</code></pre>
+
+<pre><code>##                    mpg cyl drat
+## Mazda RX4         21.0   6 3.90
+## Mazda RX4 Wag     21.0   6 3.90
+## Datsun 710        22.8   4 3.85
+## Hornet 4 Drive    21.4   6 3.08
+## Hornet Sportabout 18.7   8 3.15
+</code></pre>
+
+<h3>merge</h3>
+
+<pre><code class="r">a = data.frame(c(list(names = c(&quot;Jack&quot;, &quot;Jill&quot;, &quot;Tom&quot;), ages = c(10, 12, 14))))
+a
+</code></pre>
+
+<pre><code>##   names ages
+## 1  Jack   10
+## 2  Jill   12
+## 3   Tom   14
+</code></pre>
+
+<pre><code class="r">b = data.frame(c(list(kids = c(&quot;Jack&quot;, &quot;John&quot;, &quot;Jill&quot;), states = c(&quot;NC&quot;, &quot;SC&quot;, 
+    &quot;MA&quot;))))
+b
+</code></pre>
+
+<pre><code>##   kids states
+## 1 Jack     NC
+## 2 John     SC
+## 3 Jill     MA
+</code></pre>
+
+<pre><code class="r"># merge two data frames
+merge(a, b, by.x = &quot;names&quot;, by.y = &quot;kids&quot;)
+</code></pre>
+
+<pre><code>##   names ages states
+## 1  Jack   10     NC
+## 2  Jill   12     MA
+</code></pre>
+
+<pre><code class="r"># include all values in the first data frame
+merge(a, b, by.x = &quot;names&quot;, by.y = &quot;kids&quot;, all.x = T)
+</code></pre>
+
+<pre><code>##   names ages states
+## 1  Jack   10     NC
+## 2  Jill   12     MA
+## 3   Tom   14   &lt;NA&gt;
+</code></pre>
+
+<h2>Reshaping</h2>
+
+<ul>
+<li><p>wide format: repeated measurements in separate columns of the same record</p></li>
+<li><p>long format: repeated measurements in separate records</p></li>
+<li><p><code>stack</code>: from wide to long</p></li>
+<li><p><code>unstack</code>: from long to wide</p></li>
+<li><p><code>reshape</code></p></li>
+</ul>
+
+<h3>stack, unstack</h3>
+
+<pre><code class="r">data(Indometh)
+head(Indometh)
+</code></pre>
+
+<pre><code>##   Subject time conc
+## 1       1 0.25 1.50
+## 2       1 0.50 0.94
+## 3       1 0.75 0.78
+## 4       1 1.00 0.48
+## 5       1 1.25 0.37
+## 6       1 2.00 0.19
+</code></pre>
+
+<pre><code class="r"># unstack to the wide format
+unstack(Indometh, form = conc ~ time)
+</code></pre>
+
+<pre><code>##   X0.25 X0.5 X0.75   X1 X1.25   X2   X3   X4   X5   X6   X8
+## 1  1.50 0.94  0.78 0.48  0.37 0.19 0.12 0.11 0.08 0.07 0.05
+## 2  2.03 1.63  0.71 0.70  0.64 0.36 0.32 0.20 0.25 0.12 0.08
+## 3  2.72 1.49  1.16 0.80  0.80 0.39 0.22 0.12 0.11 0.08 0.08
+## 4  1.85 1.39  1.02 0.89  0.59 0.40 0.16 0.11 0.10 0.07 0.07
+## 5  2.05 1.04  0.81 0.39  0.30 0.23 0.13 0.11 0.08 0.10 0.06
+## 6  2.31 1.44  1.03 0.84  0.64 0.42 0.24 0.17 0.13 0.10 0.09
+</code></pre>
+
+<pre><code class="r">Ind.wide = unstack(Indometh, form = conc ~ Subject)
+Ind.wide
+</code></pre>
+
+<pre><code>##      X1   X4   X2   X5   X6   X3
+## 1  1.50 1.85 2.03 2.05 2.31 2.72
+## 2  0.94 1.39 1.63 1.04 1.44 1.49
+## 3  0.78 1.02 0.71 0.81 1.03 1.16
+## 4  0.48 0.89 0.70 0.39 0.84 0.80
+## 5  0.37 0.59 0.64 0.30 0.64 0.80
+## 6  0.19 0.40 0.36 0.23 0.42 0.39
+## 7  0.12 0.16 0.32 0.13 0.24 0.22
+## 8  0.11 0.11 0.20 0.11 0.17 0.12
+## 9  0.08 0.10 0.25 0.08 0.13 0.11
+## 10 0.07 0.07 0.12 0.10 0.10 0.08
+## 11 0.05 0.07 0.08 0.06 0.09 0.08
+</code></pre>
+
+<pre><code class="r"># stack it back (into the long format) with the select option
+stack(Ind.wide, select = -c(X1, X2, X3, X4))
+</code></pre>
+
+<pre><code>##    values ind
+## 1    2.05  X5
+## 2    1.04  X5
+## 3    0.81  X5
+## 4    0.39  X5
+## 5    0.30  X5
+## 6    0.23  X5
+## 7    0.13  X5
+## 8    0.11  X5
+## 9    0.08  X5
+## 10   0.10  X5
+## 11   0.06  X5
+## 12   2.31  X6
+## 13   1.44  X6
+## 14   1.03  X6
+## 15   0.84  X6
+## 16   0.64  X6
+## 17   0.42  X6
+## 18   0.24  X6
+## 19   0.17  X6
+## 20   0.13  X6
+## 21   0.10  X6
+## 22   0.09  X6
+</code></pre>
+
+<h3>reshape</h3>
+
+<pre><code class="r">wide = reshape(Indometh, v.names = &quot;conc&quot;, idvar = &quot;Subject&quot;, timevar = &quot;time&quot;, 
+    direction = &quot;wide&quot;)
+wide
+</code></pre>
+
+<pre><code>##    Subject conc.0.25 conc.0.5 conc.0.75 conc.1 conc.1.25 conc.2 conc.3
+## 1        1      1.50     0.94      0.78   0.48      0.37   0.19   0.12
+## 12       2      2.03     1.63      0.71   0.70      0.64   0.36   0.32
+## 23       3      2.72     1.49      1.16   0.80      0.80   0.39   0.22
+## 34       4      1.85     1.39      1.02   0.89      0.59   0.40   0.16
+## 45       5      2.05     1.04      0.81   0.39      0.30   0.23   0.13
+## 56       6      2.31     1.44      1.03   0.84      0.64   0.42   0.24
+##    conc.4 conc.5 conc.6 conc.8
+## 1    0.11   0.08   0.07   0.05
+## 12   0.20   0.25   0.12   0.08
+## 23   0.12   0.11   0.08   0.08
+## 34   0.11   0.10   0.07   0.07
+## 45   0.11   0.08   0.10   0.06
+## 56   0.17   0.13   0.10   0.09
+</code></pre>
+
+<pre><code class="r">reshape(wide, direction = &quot;long&quot;)[1:5, ]
+</code></pre>
+
+<pre><code>##        Subject time conc
+## 1.0.25       1 0.25 1.50
+## 2.0.25       2 0.25 2.03
+## 3.0.25       3 0.25 2.72
+## 4.0.25       4 0.25 1.85
+## 5.0.25       5 0.25 2.05
+</code></pre>
+
+<pre><code class="r">reshape(wide, idvar = &quot;Subject&quot;, varying = list(2:12), v.names = &quot;conc&quot;, direction = &quot;long&quot;)[1:5, 
+    ]
+</code></pre>
+
+<pre><code>##     Subject time conc
+## 1.1       1    1 1.50
+## 2.1       2    1 2.03
+## 3.1       3    1 2.72
+## 4.1       4    1 1.85
+## 5.1       5    1 2.05
+</code></pre>
+
+<h2>Splitting</h2>
+
+<ul>
+<li><p><code>split</code> to divide data into groups </p></li>
+<li><p><code>cut</code> to categorize numeric values</p></li>
+<li><p><code>strsplit</code> to split strings</p></li>
+</ul>
+
+<h2>Applying functions</h2>
+
+<ul>
+<li><p><code>apply</code> applies a function to margins (rows or columns)</p></li>
+<li><p><code>sapply</code> applies a function over a list (e.g., data frame) or vector</p></li>
+<li><p><code>tapply</code> applies a function to a vector by group</p></li>
+<li><p><code>aggregate</code> applies a function by group like <code>tapply</code>, over a data frame</p></li>
+<li><p><code>by</code> applies a function to a data frame by group</p></li>
+<li><p><code>rowSums</code>, <code>colSums</code>, <code>sweep</code>, <code>scale</code></p></li>
+</ul>
+
+<h3>apply</h3>
+
+<pre><code class="r">mymat = matrix(rnorm(12), 3, 4)
+mymat
+</code></pre>
+
+<pre><code>##         [,1]    [,2]    [,3]    [,4]
+## [1,]  1.2625  0.1750 -0.7817 -0.6288
+## [2,] -0.5473 -0.7631  0.9900 -0.7679
+## [3,] -0.2425 -0.1225 -1.2274 -1.3128
+</code></pre>
+
+<pre><code class="r"># row sums
+apply(mymat, 1, sum)
+</code></pre>
+
+<pre><code>## [1]  0.02712 -1.08830 -2.90525
+</code></pre>
+
+<pre><code class="r"># same as
+rowSums(mymat)
+</code></pre>
+
+<pre><code>## [1]  0.02712 -1.08830 -2.90525
+</code></pre>
+
+<pre><code class="r"># column sums
+apply(mymat, 2, sum)
+</code></pre>
+
+<pre><code>## [1]  0.4727 -0.7106 -1.0190 -2.7095
+</code></pre>
+
+<pre><code class="r"># same as
+colSums(mymat)
+</code></pre>
+
+<pre><code>## [1]  0.4727 -0.7106 -1.0190 -2.7095
+</code></pre>
+
+<h3>sapply</h3>
+
+<pre><code class="r"># column sums
+sapply(as.data.frame(mymat), sum)
+</code></pre>
+
+<pre><code>##      V1      V2      V3      V4 
+##  0.4727 -0.7106 -1.0190 -2.7095
+</code></pre>
+
+<pre><code class="r"># this is not what we want
+sapply(mymat, sum)
+</code></pre>
+
+<pre><code>##  [1]  1.2625 -0.5473 -0.2425  0.1750 -0.7631 -0.1225 -0.7817  0.9900
+##  [9] -1.2274 -0.6288 -0.7679 -1.3128
+</code></pre>
+
+<h3>tapply</h3>
+
+<pre><code class="r"># mean mpg by cyl
+tapply(mtcars$mpg, mtcars$cyl, mean)
+</code></pre>
+
+<pre><code>##     4     6     8 
+## 26.66 19.74 15.10
+</code></pre>
+
+<pre><code class="r"># mean mpg by cyl and gear
+tapply(mtcars$mpg, list(cyl = mtcars$cyl, carb = mtcars$gear), mean)
+</code></pre>
+
+<pre><code>##    carb
+## cyl     3     4    5
+##   4 21.50 26.93 28.2
+##   6 19.75 19.75 19.7
+##   8 15.05    NA 15.4
+</code></pre>
+
+<h3>aggregate</h3>
+
+<pre><code class="r"># same as above without NA
+aggregate(mtcars$mpg, list(mtcars$cyl, mtcars$gear), mean)
+</code></pre>
+
+<pre><code>##   Group.1 Group.2     x
+## 1       4       3 21.50
+## 2       6       3 19.75
+## 3       8       3 15.05
+## 4       4       4 26.93
+## 5       6       4 19.75
+## 6       4       5 28.20
+## 7       6       5 19.70
+## 8       8       5 15.40
+</code></pre>
+
+<pre><code class="r"># repeat over the data frame
+aggregate(mtcars, list(mtcars$cyl, mtcars$gear), mean)
+</code></pre>
+
+<pre><code>##   Group.1 Group.2   mpg cyl  disp    hp  drat    wt  qsec  vs   am gear
+## 1       4       3 21.50   4 120.1  97.0 3.700 2.465 20.01 1.0 0.00    3
+## 2       6       3 19.75   6 241.5 107.5 2.920 3.337 19.83 1.0 0.00    3
+## 3       8       3 15.05   8 357.6 194.2 3.121 4.104 17.14 0.0 0.00    3
+## 4       4       4 26.93   4 102.6  76.0 4.110 2.378 19.61 1.0 0.75    4
+## 5       6       4 19.75   6 163.8 116.5 3.910 3.094 17.67 0.5 0.50    4
+## 6       4       5 28.20   4 107.7 102.0 4.100 1.827 16.80 0.5 1.00    5
+## 7       6       5 19.70   6 145.0 175.0 3.620 2.770 15.50 0.0 1.00    5
+## 8       8       5 15.40   8 326.0 299.5 3.880 3.370 14.55 0.0 1.00    5
+##    carb
+## 1 1.000
+## 2 1.000
+## 3 3.083
+## 4 1.500
+## 5 4.000
+## 6 2.000
+## 7 6.000
+## 8 6.000
+</code></pre>
+
+<pre><code class="r"># using a formula
+aggregate(cbind(mpg, wt) ~ cyl + gear, data = mtcars, mean)
+</code></pre>
+
+<pre><code>##   cyl gear   mpg    wt
+## 1   4    3 21.50 2.465
+## 2   6    3 19.75 3.337
+## 3   8    3 15.05 4.104
+## 4   4    4 26.93 2.378
+## 5   6    4 19.75 3.094
+## 6   4    5 28.20 1.827
+## 7   6    5 19.70 2.770
+## 8   8    5 15.40 3.370
+</code></pre>
+
+<pre><code class="r"># using the subset option
+aggregate(cbind(mpg, wt) ~ cyl + gear, data = mtcars, mean, subset = carb &gt; 
+    4)
+</code></pre>
+
+<pre><code>##   cyl gear  mpg   wt
+## 1   6    5 19.7 2.77
+## 2   8    5 15.0 3.57
+</code></pre>
+
+<h3>by</h3>
+
+<pre><code class="r"># summary of the data frame by group
+by(mtcars, mtcars$am, summary)
+</code></pre>
+
+<pre><code>## mtcars$am: 0
+##       mpg            cyl            disp           hp           drat     
+##  Min.   :10.4   Min.   :4.00   Min.   :120   Min.   : 62   Min.   :2.76  
+##  1st Qu.:14.9   1st Qu.:6.00   1st Qu.:196   1st Qu.:116   1st Qu.:3.07  
+##  Median :17.3   Median :8.00   Median :276   Median :175   Median :3.15  
+##  Mean   :17.1   Mean   :6.95   Mean   :290   Mean   :160   Mean   :3.29  
+##  3rd Qu.:19.2   3rd Qu.:8.00   3rd Qu.:360   3rd Qu.:192   3rd Qu.:3.69  
+##  Max.   :24.4   Max.   :8.00   Max.   :472   Max.   :245   Max.   :3.92  
+##        wt            qsec            vs              am         gear     
+##  Min.   :2.46   Min.   :15.4   Min.   :0.000   Min.   :0   Min.   :3.00  
+##  1st Qu.:3.44   1st Qu.:17.2   1st Qu.:0.000   1st Qu.:0   1st Qu.:3.00  
+##  Median :3.52   Median :17.8   Median :0.000   Median :0   Median :3.00  
+##  Mean   :3.77   Mean   :18.2   Mean   :0.368   Mean   :0   Mean   :3.21  
+##  3rd Qu.:3.84   3rd Qu.:19.2   3rd Qu.:1.000   3rd Qu.:0   3rd Qu.:3.00  
+##  Max.   :5.42   Max.   :22.9   Max.   :1.000   Max.   :0   Max.   :4.00  
+##       carb     
+##  Min.   :1.00  
+##  1st Qu.:2.00  
+##  Median :3.00  
+##  Mean   :2.74  
+##  3rd Qu.:4.00  
+##  Max.   :4.00  
+## -------------------------------------------------------- 
+## mtcars$am: 1
+##       mpg            cyl            disp             hp     
+##  Min.   :15.0   Min.   :4.00   Min.   : 71.1   Min.   : 52  
+##  1st Qu.:21.0   1st Qu.:4.00   1st Qu.: 79.0   1st Qu.: 66  
+##  Median :22.8   Median :4.00   Median :120.3   Median :109  
+##  Mean   :24.4   Mean   :5.08   Mean   :143.5   Mean   :127  
+##  3rd Qu.:30.4   3rd Qu.:6.00   3rd Qu.:160.0   3rd Qu.:113  
+##  Max.   :33.9   Max.   :8.00   Max.   :351.0   Max.   :335  
+##       drat            wt            qsec            vs              am   
+##  Min.   :3.54   Min.   :1.51   Min.   :14.5   Min.   :0.000   Min.   :1  
+##  1st Qu.:3.85   1st Qu.:1.94   1st Qu.:16.5   1st Qu.:0.000   1st Qu.:1  
+##  Median :4.08   Median :2.32   Median :17.0   Median :1.000   Median :1  
+##  Mean   :4.05   Mean   :2.41   Mean   :17.4   Mean   :0.538   Mean   :1  
+##  3rd Qu.:4.22   3rd Qu.:2.78   3rd Qu.:18.6   3rd Qu.:1.000   3rd Qu.:1  
+##  Max.   :4.93   Max.   :3.57   Max.   :19.9   Max.   :1.000   Max.   :1  
+##       gear           carb     
+##  Min.   :4.00   Min.   :1.00  
+##  1st Qu.:4.00   1st Qu.:1.00  
+##  Median :4.00   Median :2.00  
+##  Mean   :4.38   Mean   :2.92  
+##  3rd Qu.:5.00   3rd Qu.:4.00  
+##  Max.   :5.00   Max.   :8.00
+</code></pre>
+
+<h2>Packages</h2>
+
+<ul>
+<li><p>The <code>reshape2</code> package (a reboot of the <code>reshape</code> package) flexibly restructures and aggregates data using three functions <code>melt</code>, <code>acast</code> and <code>dcast</code></p></li>
+<li><p>The <code>plyr</code> package has tools for splitting, applying and combining data</p></li>
+</ul>
+
+<h2>Exercise</h2>
+
+<ul>
+<li><p>Create a 5x5 matrix from a vector <code>runif(25)</code>. Convert the matrix into a data frame using <code>as.data.frame</code>. Assign names X1, X2, &hellip;, X5 to the columns.</p></li>
+<li><p>Using <code>which</code> and <code>is.na</code>, convert elements to NA that are larger than 0.9. </p></li>
+<li><p>Consider the dataset <code>mtcars</code>. Define a function <code>perform.t = function(x) t.test(mpg ~ am, data = x)</code> which performs a t.test for testing mean difference in <code>mpg</code> between the <code>am=0</code> and <code>am=1</code> groups, given a subset of the data. Using this function and <code>by</code>, perform this t.test for each level of <code>cyl</code>. </p></li>
+<li><p>Define another function that extracts the p-value of a t-test as <code>pv.t = function(x) x$p.v</code>. Using this function and <code>sapply</code>, extract p-values for the t-tests performed in the previous problem. </p></li>
+<li><p>Repeat this for <code>perform2.t = function(x) t.test(wt ~ am, data = x)</code>. Combine the resulting vector of these p-values with the previously obtained vector using <code>cbind</code> with appropriate column names. </p></li>
+</ul>
+
+</body>
+
+</html>
+

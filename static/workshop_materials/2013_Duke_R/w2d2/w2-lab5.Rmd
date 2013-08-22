@@ -1,0 +1,313 @@
+Lab 5: Data manipulation and exploratory data analysis
+========================================================
+
+## Names
+### preserving original names
+```{r}
+# default: syntactically invalid variable names are adjusted 
+scent1 = read.table('scent_orig.txt', sep = '\t', head = T)
+head(scent1)
+# with option check.names = FALSE
+scent2 = read.table('scent_orig.txt', sep = '\t', head = T, check.names = F)
+head(scent2)
+````
+### retrieving or setting names 
+* `dimnames`, `colnames`, `rownames`: work with general matrices
+
+* `names`, `row.names`: methods for data frames
+
+* `names` also works with vectors
+
+```{r} 
+### 1. retrieving names:
+
+# row and column names
+dimnames(scent2)
+# row names
+dimnames(scent2)[[1]] 
+# same as 
+rownames(scent2)
+# also same as
+row.names(scent2) # only for data frames
+# column names
+dimnames(scent2)[[2]]
+# same as
+colnames(scent2)
+# also same as 
+names(scent2) # only for data frames and vectors
+### 2. setting row or column names: assign a character vector
+
+rownames(scent2) = paste("row", 1:nrow(scent2), sep = ".")
+rownames(scent2)
+```
+
+## Missing values
+### checking missingness
+```{r}
+# a data frame containing missing values
+dat = data.frame(v1 = c(1, 2, 3, NA), v2 = c(5, NaN, 7, 8), v3 = 9:12)
+dat
+# check missingness
+is.na(dat) # includes NaN!
+# TRUE indices only
+which(is.na(dat))
+# return array indices
+which(is.na(dat), arr.ind = T)
+# any missing?
+any(is.na(dat))
+# number of missing values
+sum(is.na(dat))
+# same as
+length(which(is.na(dat)))
+```
+### setting NA to a value
+```{r}
+df[is.na(dat)] = 99
+df
+```
+### setting elements to NA
+```{r}
+# a matrix without NA
+dat2 = matrix(1:12, nrow = 4)
+dat2
+is.na(dat2) = c(4, 6)
+dat2
+```
+### removing NA
+```{r}
+# complete rows only
+complete.cases(dat2) 
+dat2[complete.cases(dat2), ]
+# same as
+na.omit(dat2)
+# complete columns only
+complete.cases(t(dat2))
+dat2[, complete.cases(t(dat2))]
+# same as above, retaining the number of dimensions
+dat2[, complete.cases(t(dat2)), drop = F]
+# error with NA
+mean(dat2)
+# with NA removed
+mean(dat2, na.rm = T)
+```
+## Sorting
+* `sort` to sort a vector
+
+* `order` to sort data frames, etc. It returns the permutation which orders the data. 
+
+### sort
+```{r}
+x = sample(1:4, 10, replace = T)
+x
+# sort in ascending order
+sort(x)
+# sort in descending order
+sort(x, decreasing = T)
+```
+### order
+```{r}
+y = sample(1:4, 10, replace = T)
+cbind(x, y)
+# permutation that sorts x
+order(x)
+# use y for breaking ties
+order(x, y)
+# minus sign for descending order
+order(-x, y)
+# sort data frame by cyl and then gear
+mtcars.s = mtcars[order(-mtcars$cyl, -mtcars$gear), ]
+head(mtcars.s)
+# compare with the original data
+head(mtcars[, ])
+```
+
+## Subsetting
+### Using indices
+```{r}
+# extracting rows
+mtcars[mtcars$gear == 4 & mtcars$carb == 1, ]
+# extracting columns
+mtcars[1:5, c(2, 4)]
+# same as 
+mtcars[1:5, c("cyl", "hp")]
+# also same as
+mtcars[1:5, names(mtcars) %in% c("v1", "v2", "cyl", "hp", "v3")]
+# use the minus sign for exclusion
+mtcars[1:5, -c(2, 4)]
+# but this does not work 
+mtcars[1:5, -c("cyl", "hp")]
+# instead, this works
+mtcars[1:5, setdiff(names(mtcars), c("cyl", "hp"))]
+# subsetting rows
+# subsetting variables setdiff %in%
+```
+### which
+```{r}
+which(mtcars$gear == 4 & mtcars $ carb == 1)
+which(mtcars == 6)
+which(mtcars == 6, arr.ind = T)
+which.max(mtcars$mpg)
+```
+### subset
+```{r}
+subset(mtcars, mtcars$am == 1 & mtcars$cyl == 8)
+subset(mtcars, mtcars$am == 1 & mtcars$cyl == 8, select = mpg:hp)
+```
+
+## Combining
+* `rbind`, `cbind` to combine a seqence of vector, matrix or data frames by rows or columns
+
+* `merge` to merge two data frames by common columns or row names
+
+### By assignment
+```{r}
+datxy = data.frame(x, y)
+datxy$z = datxy$x + datxy$y
+datxy
+```
+### rbind, cbind
+```{r}
+# combine by rows
+rbind(x, y)
+# combine by columns
+cbind(x, y)
+# similar to 
+data.frame(x, y)
+# combine a data frame and a vector
+col125.A = cbind(mtcars[, 1:2], mtcars[, 5])
+col125.A[1:5, ]
+# assign a name
+col125.B = cbind(mtcars[, 1:2], drat = mtcars[, 5])
+col125.B[1:5, ]
+# data.frame also works
+data.frame(mtcars[, 1:2], drat = mtcars[, 5])[1:5, ]
+# same as 
+col125.C = mtcars[, c(1:2, 5)]
+col125.C[1:5, ]
+```
+
+### merge
+```{r}
+a = data.frame(c(list(names=c("Jack", "Jill", "Tom"), ages=c(10, 12, 14))))
+a
+b = data.frame(c(list(kids=c("Jack", "John", "Jill"), states=c("NC", "SC", "MA"))))
+b
+# merge two data frames
+merge(a, b, by.x = "names", by.y = "kids")
+# include all values in the first data frame
+merge(a, b, by.x = "names", by.y = "kids", all.x = T)
+```
+
+
+
+## Reshaping
+* wide format: repeated measurements in separate columns of the same record
+
+* long format: repeated measurements in separate records
+
+* `stack`: from wide to long
+
+* `unstack`: from long to wide
+
+* `reshape`
+
+### stack, unstack
+```{r}
+data(Indometh)
+head(Indometh)
+# unstack to the wide format
+unstack(Indometh, form = conc ~ time)
+Ind.wide = unstack(Indometh, form = conc ~ Subject)
+Ind.wide
+# stack it back (into the long format) with the select option
+stack(Ind.wide, select = -c(X1, X2, X3, X4))
+```
+
+### reshape
+```{r}
+wide = reshape(Indometh, v.names = "conc", idvar = "Subject", timevar = "time", direction = "wide")
+wide
+reshape(wide, direction = "long")[1:5, ]
+reshape(wide, idvar = "Subject", varying = list(2:12), v.names = "conc", direction = "long")[1:5, ]
+```
+
+## Splitting
+* `split` to divide data into groups 
+
+* `cut` to categorize numeric values
+
+* `strsplit` to split strings
+
+
+## Applying functions
+* `apply` applies a function to margins (rows or columns)
+
+* `sapply` applies a function over a list (e.g., data frame) or vector
+
+* `tapply` applies a function to a vector by group
+
+* `aggregate` applies a function by group like `tapply`, over a data frame
+
+* `by` applies a function to a data frame by group
+
+* `rowSums`, `colSums`, `sweep`, `scale`
+
+### apply
+```{r}
+mymat = matrix(rnorm(12), 3, 4)
+mymat 
+# row sums
+apply(mymat, 1, sum)
+#same as 
+rowSums(mymat)
+# column sums
+apply(mymat, 2, sum)
+#same as 
+colSums(mymat)
+```
+### sapply
+```{r}
+# column sums
+sapply(as.data.frame(mymat), sum)
+# this is not what we want
+sapply(mymat, sum)
+```
+### tapply
+```{r}
+# mean mpg by cyl
+tapply(mtcars$mpg, mtcars$cyl, mean)
+# mean mpg by cyl and gear
+tapply(mtcars$mpg, list(cyl = mtcars$cyl, carb = mtcars$gear), mean)
+```
+### aggregate
+```{r}
+# same as above without NA
+aggregate(mtcars$mpg, list(mtcars$cyl, mtcars$gear), mean)
+# repeat over the data frame
+aggregate(mtcars, list(mtcars$cyl, mtcars$gear), mean)
+# using a formula
+aggregate(cbind(mpg, wt) ~ cyl + gear, data = mtcars, mean)
+# using the subset option
+aggregate(cbind(mpg, wt) ~ cyl + gear, data = mtcars, mean, subset = carb > 4)
+```
+### by
+```{r}
+# summary of the data frame by group
+by(mtcars, mtcars$am, summary)
+```
+## Packages
+ * The `reshape2` package (a reboot of the `reshape` package) flexibly restructures and aggregates data using three functions `melt`, `acast` and `dcast`
+
+ * The `plyr` package has tools for splitting, applying and combining data
+
+## Exercise
+* Create a 5x5 matrix from a vector `runif(25)`. Convert the matrix into a data frame using `as.data.frame`. Assign names X1, X2, ..., X5 to the columns.
+
+* Using `which` and `is.na`, convert elements to NA that are larger than 0.9. 
+
+
+* Consider the dataset `mtcars`. Define a function `perform.t = function(x) t.test(mpg ~ am, data = x)` which performs a t.test for testing mean difference in `mpg` between the `am=0` and `am=1` groups, given a subset of the data. Using this function and `by`, perform this t.test for each level of `cyl`. 
+
+* Define another function that extracts the p-value of a t-test as `pv.t = function(x) x$p.v`. Using this function and `sapply`, extract p-values for the t-tests performed in the previous problem. 
+
+* Repeat this for `perform2.t = function(x) t.test(wt ~ am, data = x)`. Combine the resulting vector of these p-values with the previously obtained vector using `cbind` with appropriate column names. 
