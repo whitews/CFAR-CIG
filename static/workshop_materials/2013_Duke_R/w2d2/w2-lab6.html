@@ -147,12 +147,13 @@ hr {
 <body>
 <h1>Programming in R</h1>
 
-<h2>Why do people write programs? </h2>
+<h2>Why do people write R programs? </h2>
 
 <ol>
 <li>Clean data \( \surd \)</li>
 <li>Automate batch analysis \( \surd \)</li>
-<li>Develop new methods \( ? \)</li>
+<li>Develop new methods and tools \( ? \)</li>
+<li>Perform statistical simulations \( ? \)</li>
 </ol>
 
 <h2>Building blocks (15 minutes)</h2>
@@ -175,8 +176,7 @@ hr {
 <li><p>Collections</p>
 
 <ol>
-<li>Vectors</li>
-<li>Matrices</li>
+<li>Arrays (includes vectors (1D), matrices (2D) and generalized arrays (ND))</li>
 <li>Data frames</li>
 <li>Lists</li>
 <li>Strings =&gt; See <strong>review</strong>
@@ -232,10 +232,10 @@ Data munging
 <h2>Data manipulation (Covered by Darcy)</h2>
 
 <ol>
-<li>Often need to apply functions to only <em>part</em> of a data set</li>
+<li>Often need to apply functions to only <em>part</em> of a data set
+
+<ol>
 <li>Subsets</li>
-<li>Sorting and ordering =&gt; See <strong>review</strong></li>
-<li>Sampling =&gt; See <strong>review</strong></li>
 <li>Apply family of higher order functions =&gt; See <strong>review</strong>
 
 <ol>
@@ -243,7 +243,20 @@ Data munging
 <li>sapply</li>
 <li>tapply</li>
 </ol></li>
-<li>Grouping</li>
+</ol></li>
+<li>Sorting and ordering =&gt; See <strong>review</strong></li>
+<li>Sampling =&gt; See <strong>review</strong></li>
+<li>Combining data
+
+<ol>
+<li>c()</li>
+<li>cbind() and rbind()</li>
+</ol></li>
+<li>Grouping
+
+<ol>
+<li>Many methods, but most powerful is probably use of the <code>plyr</code> package =&gt; see <strong>review</strong></li>
+</ol></li>
 </ol>
 
 <h2>Review of pretest solutions (15 minutes)</h2>

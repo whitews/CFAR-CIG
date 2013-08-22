@@ -1,0 +1,141 @@
+Programming in R
+====================================
+  
+Why do people write R programs? 
+-------------------------------------------
+  
+1. Clean data $\surd$
+2. Automate batch analysis $\surd$
+3. Develop new methods and tools $?$
+4. Perform statistical simulations $?$
+
+Building blocks (15 minutes)
+----------------------------
+  
+### Data
+
+1. Atomic
+  1. Numbers
+  2. TRUE, FALSE
+  3. Characters
+  4. Dates => See **review**
+      1. ```Sys.Date```, ```as.Date```, ```seq```, ```format```
+    
+2. Collections
+  1. Arrays (includes vectors (1D), matrices (2D) and generalized arrays (ND))
+  3. Data frames
+  4. Lists
+  5. Strings => See **review**
+     1. ```print```, ```cat```, ```substr```, ```paste```
+  
+### Control structures (15 minutes)
+
+1. if-else => See **review**
+2. for => See **review**
+
+### Input/output (15 minutes)
+
+1. Text - ```read.table()```, ```write.table()```
+2. Graphics - ```pdf()```, ```png()```, ```dev.off()```
+3. Binary - ```save()```, ```save.image()```, ```load()```
+
+Break/Exercises/Q&A (15 minutes)
+------------------
+
+Functions (30 minutes) 
+----------
+
+1. Functions as machiens that transform inputs into outputs
+2. Anatomy of a fucntion => See **review**
+3. Comments
+4. Examples => See **review**
+  1. Trivial examples
+  2. Sampling and the ```peek()``` function => See **ppek**
+
+```
+It is a good practice to inspect your data before doing any serious analyiss (otherwise known as a “sanity check”). One way to do this is to simply inspect a few elements. The built-in funciton head and tail do this, but only present possibly very atypical data. We want to write a function to display random rows in a dataframe to avoid looking a biased samples.
+
+**Skills**
+
+Writing custom funcitons
+Using default arguments
+Using the sample function
+Use of indices to extract data frame elements
+Data munging
+```
+
+Data manipulation (Covered by Darcy)
+-----------------
+
+1. Often need to apply functions to only *part* of a data set
+  2. Subsets
+  3. Apply family of higher order functions => See **review**
+      1. apply
+      2. sapply
+      3. tapply
+3. Sorting and ordering => See **review**
+4. Sampling => See **review**
+5. Combining data
+  1. c()
+  2. cbind() and rbind()
+4. Grouping
+  1. Many methods, but most powerful is probably use of the ```plyr``` package => see **review**
+  
+Review of pretest solutions (15 minutes)
+----------------------------
+
+1. cube, power => See **pretest_solutions**
+2. Fizzbuzz => See **pretest_solutions**
+3. sorting and ordering => See **pretest_solutions**
+4. dates => See **pretest_solutions**
+5. strings => See **pretest_solutions**
+
+Break/Exercises/Q&A (15 minutes)
+-------------------
+
+Extended examples (30 minutes)
+-----------------
+
+1. Data mnunging (or cleaning) of a data frame => See **munging**
+
+```
+In reality, most data in biology is “dirty” and comes with several errors. We need to clean this up before analysis can be meaningfully performed. Cleaning up and managing data is also known as “data munging”, and the dirty secret of the statistics industry is that this is often the most time-consuming part of the anlaysis. We will take a detailed look at how to perform data munging in R, and introduce the plyr package for reshaping and summarizing data sets flexibly.
+
+**Skills**
+
+Checking data for errors
+Fixing different types of errors
+Introduction to data resahpping and summarizing with plyr
+Using R graphics
+```
+
+  
+2. Batch procewsing of QC files => See **qc**
+
+```
+We conclude by looking at an extended example that brings together many different aspects of programming in R. We collect daily QC files for an instrument, and want to plot trend lines for each QC measurement so as to identify potential problems. The problem is fairly complex since it involves working with multiple files, date hanling and customized graphics. We show how to break the problem into smaller pieces using top-down programming, and finally reassemble the component pieces to give us the function we need.
+
+**Skills**
+
+Working with dates
+Working with multiple files
+Looping
+Combining data frames
+Using the order function
+Using R graphics
+Top-down program decomposition
+```
+
+Brief comments on Reproducible analysis (15 minutes)
+---------------------
+
+1. Principles
+  1. Make programs easy to understand (you only write a program once but will likely have to read it many times)
+  2. Make programs easy to test
+2. Comments and documentation
+2. Magic numbers
+3. Literate programming
+4. The knitr package
+
+Break/Exercises/Q&A (15 minutes)
+--------------------
