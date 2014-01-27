@@ -1,0 +1,50 @@
+{% extends "main_subbase.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("meetings-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <!-- HERO BLOCK 1 -->
+        <div class="span12 home-block hero-block-1">
+          <h1>Mission / Goals</h1>
+          <hr>
+
+          <h3>
+          <ul>
+            <li>Inter-CFAR Cytometry Interest Group (CIG)</li>
+              <ul>
+                <li>Share protocols and recommendations for cytometry-based assays</li>
+                  <ul>
+                    <li>MHC Tetramer Technology</li>
+                    <li>T Follicular Helper Cells</li>
+                    <li>Intracellular Cytokine Staining (ICS)</li>
+                  </ul>
+
+                <li>Foster new collaborations, papers, grants</li>
+                  <ul>
+                    <li>Influenza vaccine study</li>
+                  </ul>
+
+                <li>Mentoring</li>
+
+                <li>Domestic and international partnerships</li>
+              </ul>
+
+            <li>CFAR-discounted pricing agreements with vendors</li>
+
+            <li>Training opportunities for cytometry-based assays and technology</li>
+              <ul>
+                <li>CIG Annual Flow Cytometry Workshops</li>
+                <li>FlowPET (Flow Cytometry Performance Evaluation & Training)</li>
+              </ul>
+          </ul>
+          </h3>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,11 +1,59 @@
-{% extends "base.html" %}
+{% extends "main_subbase.html" %}
 {% load url from future %}
-{% block workshop_title %}CFAR Cytometry Interest Group Workshops{% endblock %}
-{% block workshop_base %}
-  <hr/>
-  <div class="container">
-    <h1>2013 Workshops</h1>
-    <h2><a href="{% url '2013_Duke_FC_overview' %}">Flow Cytometry at Duke University</a></h2>
-    <h2><a href="{% url '2013_Duke_R_overview' %}">R Workshop at Duke University</a></h2>
+{% block body %}
+<script>
+    document.getElementById("home-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <!-- HERO BLOCK 1 -->
+        <div class="span12 home-block hero-block-1">
+          <h1>Home</h1>
+          <hr>
+
+          <h2>
+            Participation in the Inter-CFAR Cytometry Interest Group is
+            open to any CFAR:
+          </h2>
+          <ul>
+            <li>Miami</li>
+            <li>Emory</li>
+            <li>Duke</li>
+          </ul>
+
+          <h2>
+            Contact Janet Staats: <a href="mailto:janet.staats@duke.edu">janet.staats@duke.edu</a>
+          </h2>
+
+          <h2>
+            Meeting frequency:
+          </h2>
+          <ul>
+            <li>Bimonthly teleconference</li>
+            <li>Annual Cytometry Workshop</li>
+            <li>Annual meeting as a part of CFAR Director’s Meeting</li>
+          </ul>
+
+          <h2>
+            Outcomes include shared protocols/technology transfer, new initiatives,
+            training workshops, papers, and grants.
+          </h2>
+          <h2>
+            Cytometry resources will become more transparent and available to share
+            among CFARs:
+          </h2>
+          <ul>
+            <li>Access to assay protocols</li>
+            <li>Access to specialized instrumentation</li>
+            <li>Access to training for cytometry-based assays and technology</li>
+          </ul>
+
+          <br/>
+
+        </div>
+      </div>
+    </div>
   </div>
+
 {% endblock %}

@@ -375,6 +375,10 @@ blockquote .autor {
 .bold {
     font-weight: bold;
 }
+ul > li {
+    line-height: 1.5;
+}
+
 ul.icons {
     list-style: none;
     margin-left: 0;
@@ -812,7 +816,7 @@ div.alert {
     border-bottom: 1px solid #898989;
     padding: 3px 0;
 }
-.footer-navigate li a {
+.footer-wrapper a {
     color: #ffffff;
 }
 .footer-bottom p {

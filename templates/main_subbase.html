@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block title %}Center for AIDS Research - Cytometry Interest Group{% endblock %}
+{% block sub_base %}
+  <!-- NAV START -->
+  <div class="container">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse">
+            <ul class="nav nav-pills">
+              <li id="home-nav" class="single">
+                <a href="{% url 'home' %}">HOME<i></i></a>
+              </li>
+              <li id="register-nav" class="single">
+                <a href="{% url 'mission' %}">MISSION / GOALS<i></i></a>
+              </li>
+              <li id="meetings-nav" class="single">
+                <a href="{% url 'meetings_home' %}">MEETINGS<i></i></a>
+              </li>
+              <li id="workshops-nav" class="single">
+                <a href="{% url 'workshops_home' %}">WORKSHOPS<i></i></a>
+              </li>
+              <li id="protocols-nav" class="single">
+                <a href="{% url '2013_Duke_FC_links' %}">SHARED PROTOCOLS<i></i></a>
+              </li>
+              <li id="participating-nav" class="single">
+                <a href="{% url '2013_Duke_FC_hotels' %}">PARTICIPATING CFARs<i></i></a>
+              </li>
+              <li id="contact-nav" class="single">
+                <a href="{% url '2013_Duke_FC_contact' %}">CONTACT<i></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- BODY -->
+    <div class="main-content">
+      <div class="container">
+
+    {% block body %}
+    {% endblock %}
+
+    </div>
+<!-- END BODY -->
+<!-- FOOTER STARTS HERE -->
+    <div class="top-footer-border">
+      <div class="container"></div>
+    </div>
+    </div>
+    <div class="footer-top"></div>
+    <div class="footer-wrapper">
+      <div class="container">
+        <div class="row show-grid">
+          <div class="span12">
+            <div class="row show-grid">
+<!-- FOOTER: ADDRESS -->
+              <div class="span4">
+                <h4 class="center-title">Contact</h4>
+                <address class="address">
+                  <p><i class="icon-map-marker icon-large"></i>Beard Conference Room</p>
+                  <p><i>&nbsp;</i>Surgical Oncology Research Facility</p>
+                  <p><i>&nbsp;</i>Duke University Medical Center</p>
+                  <p>&nbsp;</p>
+                  <p><i class="icon-envelope icon-large"></i><a href="mailto:janet.staats@duke.edu?Subject=2013%20CFAR%20Registration">janet.staats@duke.edu</a></p>
+                </address>
+              </div>
+<!-- FOOTER: ABOUT US -->
+              <div class="span4 footer-center">
+                <h4 class="center-title">About CFAR</h4>
+                <p>
+                  The Centers for AIDS Research (CFAR) program at the National
+                  Institutes of Health (NIH) provides administrative and shared
+                  research support to synergistically enhance and coordinate
+                  high quality AIDS research projects.
+                </p>
+                <a href="http://www.niaid.nih.gov/labsandresources/resources/cfar/Pages/default.aspx">
+                  CFAR @ NIH
+                </a>
+              </div>
+<!-- FOOTER: NAVIGATION LINKS -->
+              <div class="span4 footer-right">
+                <h4 class="center-title">Navigate</h4>
+                <ul class="footer-navigate">
+                  <li>
+                    <a href="{% url '2013_Duke_FC_overview' %}">Overview</a>
+                  </li>
+                  <li>
+                    <a href="{% url '2013_Duke_FC_register' %}">Register</a>
+                  </li>
+                  <li>
+                    <a href="{% url '2013_Duke_FC_day_1' %}">Agenda</a>
+                  </li>
+                  <li>
+                    <a href="{% url '2013_Duke_FC_contact' %}">Contact</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row show-grid">
+<!-- FOOTER: COPYRIGHT TEXT -->
+          <div class="span12">
+            <p class="text-center">&copy; 2013-14 <a href="http://www.duke.edu">Duke University</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- END FOOTER -->
+{% endblock %}

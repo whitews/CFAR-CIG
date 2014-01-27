@@ -1,0 +1,24 @@
+{% extends "main_subbase.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("workshops-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <!-- HERO BLOCK 1 -->
+        <div class="span12 home-block hero-block-1">
+          <h1>2013 Workshops</h1>
+          <hr>
+          <h2>
+            <a href="{% url '2013_Duke_FC_overview' %}">Flow Cytometry at Duke University</a>
+          </h2>
+          <h2>
+            <a href="{% url '2013_Duke_R_overview' %}">R Workshop at Duke University</a>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
