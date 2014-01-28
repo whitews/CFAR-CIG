@@ -829,17 +829,19 @@ div.alert {
 }
 .footer-center p {
     color: #cbcbcb;
-    padding: 12px 0 0;
+    padding: 10px 0 0;
 }
 .footer-navigate li {
     border-bottom: 1px solid #898989;
     padding: 3px 0;
+    font-size: 11px;
+    line-height: 1.1;
 }
 .footer-wrapper a {
     color: #ffffff;
 }
 .footer-bottom p {
-    padding: 12px;
+    padding: 10px;
     color: #ffffff;
 }
 .footer-bottom p a {
