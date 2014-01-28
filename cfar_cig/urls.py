@@ -7,6 +7,9 @@ urlpatterns = patterns('',
     url(r'^mission/$', TemplateView.as_view(template_name="mission.html"), name='mission'),
     url(r'^meetings/$', TemplateView.as_view(template_name="meetings.html"), name='meetings_home'),
     url(r'^workshops/$', TemplateView.as_view(template_name="workshops.html"), name='workshops_home'),
+    url(r'^protocols/$', TemplateView.as_view(template_name="protocols.html"), name='protocols'),
+    url(r'^participating/$', TemplateView.as_view(template_name="participating_cfars.html"), name='participating_cfars'),
+    url(r'^contact/$', TemplateView.as_view(template_name="contact.html"), name='contact'),
 )
 
 # 2013 Duke Flow Cytometry Workshop
