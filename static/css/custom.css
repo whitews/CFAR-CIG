@@ -22,6 +22,25 @@
     font-size: 28px;
 }
 
+/* Sticky Footer */
+html, body {
+  height: 100%;
+}
+
+body > #wrap {
+  min-height: 100%;
+  margin-bottom: -255px;
+}
+
+#wrap:after {
+    content: "";
+    display: block;
+}
+
+#footer, #wrap:after {
+    height: 255px;
+}
+
 p i {
     padding-right: 9px;
 }

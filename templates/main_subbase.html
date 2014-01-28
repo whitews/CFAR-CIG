@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load url from future %}
+
 {% block title %}Center for AIDS Research - Cytometry Interest Group{% endblock %}
+
 {% block sub_base %}
   <!-- NAV START -->
   <div class="container">
@@ -12,7 +14,7 @@
               <li id="home-nav" class="single">
                 <a href="{% url 'home' %}">HOME<i></i></a>
               </li>
-              <li id="register-nav" class="single">
+              <li id="mission-nav" class="single">
                 <a href="{% url 'mission' %}">MISSION / GOALS<i></i></a>
               </li>
               <li id="meetings-nav" class="single">
@@ -37,18 +39,22 @@
     </div>
   </div>
 <!-- BODY -->
-    <div class="main-content">
-      <div class="container">
+  <div class="main-content">
+    <div class="container">
 
-    {% block body %}
-    {% endblock %}
-
+      {% block body %}
+      {% endblock %}
     </div>
+  </div>
+{% endblock %}
 <!-- END BODY -->
+
+
+
 <!-- FOOTER STARTS HERE -->
+    {% block footer %}
     <div class="top-footer-border">
       <div class="container"></div>
-    </div>
     </div>
     <div class="footer-top"></div>
     <div class="footer-wrapper">
@@ -113,5 +119,5 @@
         </div>
       </div>
     </div>
+  {% endblock %}
 <!-- END FOOTER -->
-{% endblock %}

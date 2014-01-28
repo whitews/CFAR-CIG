@@ -12,22 +12,34 @@
     {% block extra_head %}{% endblock %}
   </head>
   <body>
-    <div class="top_line">
-      <div class="container"></div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="span4 logo">
-          <a class="header_text" href="{% url 'home' %}">CFAR CIG</a>
-        </div>
-        <div class="span8 pull-right">
-          <p class="header_subtext pull-right">
-            {% block title %}{% endblock %}
-          </p>
+    <div id="wrap">
+      <div class="top_line">
+        <div class="container"></div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="span4 logo">
+            <a class="header_text" href="{% url 'home' %}">CFAR CIG</a>
+          </div>
+          <div class="span8 pull-right">
+            <p class="header_subtext pull-right">
+              {% block title %}{% endblock %}
+            </p>
+          </div>
         </div>
       </div>
+
+      {% block sub_base %}
+      {% endblock %}
+
+    </div> <!-- End wrap -->
+
+    <div id="footer">
+
+      {% block footer %}
+      {% endblock %}
+
     </div>
-    {% block sub_base %}{% endblock %}
 <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
