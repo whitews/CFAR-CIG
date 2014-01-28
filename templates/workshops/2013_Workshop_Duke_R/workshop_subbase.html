@@ -1,60 +1,71 @@
 {% extends "base.html" %}
 {% load url from future %}
+
 {% block title %}2013 R Workshops at Duke University{% endblock %}
+
 {% block sub_base %}
-    <!-- NAV START -->
-    <div class="container">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <div class="nav-collapse">
-                        <ul class="nav nav-pills">
-                            <li id="home-nav" class="single"><a href="{% url '2013_Duke_R_overview' %}">OVERVIEW<i></i></a>
-                            </li>
-                            <li id="agenda-nav" class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">AGENDA<i></i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url '2013_Duke_R_week_1_day_1' %}">Week 1 - Day 1</a></li>
-                                    <li><a href="{% url '2013_Duke_R_week_1_day_2' %}">Week 1 - Day 2</a></li>
-                                    <li>-</li>
-                                    <li><a href="{% url '2013_Duke_R_week_2_day_1' %}">Week 2 - Day 1</a></li>
-                                    <li><a href="{% url '2013_Duke_R_week_2_day_2' %}">Week 2 - Day 2</a></li>
-                                </ul>
-                            </li>
-                            <li id="links-nav" class="single"><a href="{% url '2013_Duke_R_links' %}">LINKS<i></i></a>
-                            <li id="contact-nav" class="single"><a href="{% url '2013_Duke_R_contact' %}">CONTACT<i></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <!-- NAV START -->
+  <div class="container">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse">
+            <ul class="nav nav-pills">
+              <li id="home-nav" class="single"><a href="{% url '2013_Duke_R_overview' %}">OVERVIEW<i></i></a>
+              </li>
+              <li id="agenda-nav" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">AGENDA<i></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url '2013_Duke_R_week_1_day_1' %}">Week 1 - Day 1</a></li>
+                  <li><a href="{% url '2013_Duke_R_week_1_day_2' %}">Week 1 - Day 2</a></li>
+                  <li>-</li>
+                  <li><a href="{% url '2013_Duke_R_week_2_day_1' %}">Week 2 - Day 1</a></li>
+                  <li><a href="{% url '2013_Duke_R_week_2_day_2' %}">Week 2 - Day 2</a></li>
+                </ul>
+              </li>
+              <li id="links-nav" class="single"><a href="{% url '2013_Duke_R_links' %}">LINKS<i></i></a>
+              <li id="contact-nav" class="single"><a href="{% url '2013_Duke_R_contact' %}">CONTACT<i></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 <!-- BODY -->
-    <div class="main-content">
-      <div class="container">
-    {% block body %}
-    {% endblock %}
-        <!-- SPONSOR LOGO BAR -->
-        <div class="main-block sponsors">
-            <h2>Sponsored by:</h2>
-            <div class="row show-grid">
-                <div class="span12">
-                    <div id="sponsors" class="row show-grid">
-                        <div class="span2">
-                            <a href="http://www.niaid.nih.gov/labsandresources/resources/cfar/Pages/default.aspx"><img alt="" src="{{ STATIC_URL }}img/cfar_logo.jpg" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="main-content">
+    <div class="container">
+
+      {% block body %}
+      {% endblock %}
+
+      <!-- SPONSOR LOGO BAR -->
+      <div class="main-block sponsors">
+        <div class="title-wrapper">
+            <h2>Sponsors</h2>
         </div>
+        <div class="row show-grid">
+          <div class="span12">
+            <div id="sponsors" class="row show-grid">
+              <div class="span2">
+                <a href="http://www.niaid.nih.gov/labsandresources/resources/cfar/Pages/default.aspx"><img alt="" src="{{ STATIC_URL }}img/cfar_logo.jpg" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+{% endblock %}
 <!-- END BODY -->
+
+
 <!-- FOOTER STARTS HERE -->
+{% block footer %}
     <div class="top-footer-border">
       <div class="container"></div>
     </div>
-    </div>
+
     <div class="footer-top"></div>
     <div class="footer-wrapper">
       <div class="container">
@@ -111,5 +122,5 @@
         </div>
       </div>
     </div>
-<!-- END FOOTER -->
 {% endblock %}
+<!-- END FOOTER -->
