@@ -7,6 +7,14 @@
     border-radius: 6px;
 }
 
+.main-block {
+  font-size: 14px;
+}
+
+.middle {
+  vertical-align: middle;
+}
+
 .header_text:hover {
     color: #fff;
     text-decoration: none;
@@ -29,7 +37,7 @@ html, body {
 
 body > #wrap {
   min-height: 100%;
-  margin-bottom: -255px;
+  margin-bottom: -267px;
 }
 
 #wrap:after {
@@ -277,7 +285,7 @@ p i {
 body {
     margin: 0;
     font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 20px;
     color: #333333;
     background-color: #ffffff;
@@ -781,6 +789,7 @@ div.alert {
 /*Footer Start*/
 #footer {
     width: 100%;
+    font-size: 12px;
 }
 .footer-top {
     height: 6px;
@@ -794,7 +803,7 @@ div.alert {
     background-color: #333333;
 }
 .footer-wrapper .address {
-    padding-left: 15px;
+    padding-left: 6px;
 }
 .footer-wrapper .address p {
     margin-bottom: 0;
@@ -843,6 +852,7 @@ div.alert {
 .footer-bottom p {
     padding: 10px;
     color: #ffffff;
+    font-size: 11px;
 }
 .footer-bottom p a {
     color: #ffffff;
