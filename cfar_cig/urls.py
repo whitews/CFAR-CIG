@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^workshops/$', TemplateView.as_view(template_name="workshops.html"), name='workshops_home'),
     url(r'^protocols/$', TemplateView.as_view(template_name="protocols.html"), name='protocols'),
     url(r'^participating/$', TemplateView.as_view(template_name="participating_cfars.html"), name='participating_cfars'),
+    url(r'^vendors/$', TemplateView.as_view(template_name="vendors.html"), name='vendors'),
     url(r'^contact/$', TemplateView.as_view(template_name="contact.html"), name='contact'),
 )
 
