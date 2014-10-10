@@ -13,6 +13,20 @@ urlpatterns = patterns('',
     url(r'^contact/$', TemplateView.as_view(template_name="contact.html"), name='contact'),
 )
 
+# 2014 Duke Flow Cytometry Workshop
+urlpatterns += patterns('',
+    url(r'^workshops/2014/DukeFlow/$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/overview.html"), name='2014_Duke_FC_overview'),
+    url(r'^workshops/2014/DukeFlow/register$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/register.html"), name='2014_Duke_FC_register'),
+    url(r'^workshops/2014/DukeFlow/agenda/1$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/day_1.html"), name='2014_Duke_FC_day_1'),
+    url(r'^workshops/2014/DukeFlow/agenda/2$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/day_2.html"), name='2014_Duke_FC_day_2'),
+    url(r'^workshops/2014/DukeFlow/agenda/3$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/day_3.html"), name='2014_Duke_FC_day_3'),
+    url(r'^workshops/2014/DukeFlow/agenda/4$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/day_4.html"), name='2014_Duke_FC_day_4'),
+    url(r'^workshops/2014/DukeFlow/agenda/5$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/day_5.html"), name='2014_Duke_FC_day_5'),
+    url(r'^workshops/2014/DukeFlow/links', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/links.html"), name='2014_Duke_FC_links'),
+    url(r'^workshops/2014/DukeFlow/hotels$', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/hotels.html"), name='2014_Duke_FC_hotels'),
+    url(r'^workshops/2014/DukeFlow/contact', TemplateView.as_view(template_name="workshops/2014_Workshop_Duke_FlowCytometry/contact.html"), name='2014_Duke_FC_contact'),
+)
+
 # 2013 Duke Flow Cytometry Workshop
 urlpatterns += patterns('',
     url(r'^workshops/2013/DukeFlow/$', TemplateView.as_view(template_name="workshops/2013_Workshop_Duke_FlowCytometry/overview.html"), name='2013_Duke_FC_overview'),
