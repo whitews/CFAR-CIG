@@ -1,0 +1,80 @@
+{% extends "workshops/2014_Workshop_Duke_FlowCytometry/workshop_subbase.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("register-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+            <div class="span12">
+                <div class="row">
+                    <!-- HERO BLOCK 1 -->
+                    <div class="span6 home-block hero-block-1">
+                        <h1>Downloads</h1>
+                        <hr/>
+                       
+                        <h2>Agenda</h2>
+                        <p>Download a PDF of the 5-day agenda or see each day's schedule by following the links below.</p>
+
+                        <p><a href="{{ STATIC_URL }}workshop_materials/2014_Duke_FlowCytometry/CFAR Training Agenda 2014.pdf"><i class="icon-download-alt icon-large"></i>Download</a></p>
+                       
+                        <p>
+                            <a href="{% url '2014_Duke_FC_day_1' %}">Day 1</a>
+                        </p>
+                        <p>
+                            <a href="{% url '2014_Duke_FC_day_2' %}">Day 2</a>
+                        </p>
+                        <p>
+                            <a href="{% url '2014_Duke_FC_day_3' %}">Day 3</a>
+                        </p>
+                        <p>
+                            <a href="{% url '2014_Duke_FC_day_4' %}">Day 4</a>
+                        </p>
+                        <p>
+                            <a href="{% url '2014_Duke_FC_day_5' %}">Day 5</a>
+                        </p>
+
+                      <br/>
+                      <hr/>
+
+                      <h2>Workshop Documents</h2>
+
+                      <p>
+                        <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/Instrument_qualification.zip"><i
+                          class="icon-download-alt icon-large"></i>Instrument Qualification</a>
+                      </p>
+
+                      <p>
+                        <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/Reagent_qualification.zip"><i
+                          class="icon-download-alt icon-large"></i>Reagent Qualifications</a>
+                      </p>
+
+                      <p>
+                        <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/ExperimentDocs.zip"><i
+                          class="icon-download-alt icon-large"></i>Experiment Documentation</a>
+                      </p>
+
+                      <p>
+                        <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/Protocols.zip"><i
+                          class="icon-download-alt icon-large"></i>Protocols</a>
+                      </p>
+
+                      <p>
+                        <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/References.zip"><i
+                          class="icon-download-alt icon-large"></i>References</a>
+                      </p>
+
+                      <p>
+                        <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/DukeCFARFlowCytometryWorkshop - Feedback Form.docx">
+                          <i class="icon-download-alt icon-large"></i>Survey
+                        </a>
+                      </p>
+
+                    </div>
+                    <!-- SPACER BETWEEN HERO BLOCK 1 AND HERO BLOCK 2 -->
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+{% endblock %}

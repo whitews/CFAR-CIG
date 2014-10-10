@@ -1,0 +1,106 @@
+{% extends "workshops/2014_Workshop_Duke_FlowCytometry/workshop_subbase.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("agenda-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <div class="span12 home-block hero-block-1">
+          <h1>Tuesday, May 7th - Day 2</h1>
+          <hr/>
+
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td>
+                  <h2>8:15 - 8:30</h2>
+                </td>
+                <td>
+                  <h2>Breakfast - provided by BD Biosciences</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>8:30 - 9:30</h2>
+                </td>
+                <td>
+                  <h2>LECTURE: ICS Assay - Stimulation Overview</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>9:30 - 12:00</h2>
+                </td>
+                <td>
+                  <h2>LAB 4: ICS Assay - PBMC Stimulation</h2>
+                  <h2>LAB 5: LSRII Validation - Data Analysis for 1 PMT</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>12:00 - 1:00</h2>
+                </td>
+                <td>
+                  <h2>WORKING LUNCH - provided by BD Biosciences</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>1:00 - 2:00</h2>
+                </td>
+                <td>
+                  <h2>LECTURE: Standards & Data Annotation (Mike Hulsey, BD Biosciences)</h2>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/CFAR Data Standards Annotation_js29Apr13.pptx">
+                      <i class="icon-download-alt icon-large"></i>Slides</a>
+                  </p>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/StandardsDataAnnotation.zip">
+                      <i class="icon-download-alt icon-large"></i>Materials</a>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>2:00 - 2:30</h2>
+                <td>
+                  <h2>LECTURE: ICS Assay - Staining Overview</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>2:30 - 3:00</h2>
+                <td>
+                  <h2>LECTURE: Statistical Considerations (Dr. Cliburn Chan, Duke)</h2>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/CFAR_workshop_2013_cc01StatConsiderations.pptx"><i
+                      class="icon-download-alt icon-large"></i>Slides</a>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>3:00 - 3:30</h2>
+                <td>
+                  <h2>LECTURE: ICS Assay - Acquisition Overview</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>3:30 - 5:30</h2>
+                <td>
+                  <h2>LAB 6: Create acquisition Tube Lists</h2>
+                  <h2>LAB 7: Create FACSDiva Acquisition Templates</h2>
+                  <h2>LAB 8: ICS Assay - Overnight Rest at 4&deg;C</h2>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endblock %}

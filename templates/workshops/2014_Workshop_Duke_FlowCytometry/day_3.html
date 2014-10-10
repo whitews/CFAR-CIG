@@ -1,0 +1,70 @@
+{% extends "workshops/2014_Workshop_Duke_FlowCytometry/workshop_subbase.html" %}
+{% load url from future %}
+{% block body %}
+<script>
+    document.getElementById("agenda-nav").className += " active";
+</script>
+  <div class="row main-block" xmlns="http://www.w3.org/1999/html">
+    <div class="span12">
+      <div class="row">
+        <div class="span12 home-block hero-block-1">
+          <h1>Wednesday, May 8th - Day 3</h1>
+          <hr/>
+
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td>
+                  <h2>8:15 - 8:30</h2>
+                </td>
+                <td>
+                  <h2>Breakfast - provided by BD Biosciences</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>8:30 - 12:30</h2>
+                </td>
+                <td>
+                  <h2>LAB 9: ICS Assay - PBMC Staining</h2>
+                  <h2>LAB 10: LSRII Calibration (existing template) - Daily QC</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>12:30 - 1:30</h2>
+                </td>
+                <td>
+                  <h2>WORKING LUNCH - provided by BD Biosciences</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>1:30 - 2:30</h2>
+                </td>
+                <td>
+                  <h2>LECTURE: Instrument Troubleshooting</h2>
+                  <p>
+                    <a href="{{ STATIC_URL }}workshop_materials/2013_Duke_FlowCytometry/CFAR Training LSRII Troubleshooting 05May13.ppt">
+                    <i class="icon-download-alt icon-large"></i>Slides</a>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h2>2:30 - 6:00</h2>
+                </td>
+                <td>
+                  <h2>LAB 11: Instrument Setup for Acquisition</h2>
+                  <h2>LAB 12: Sample Acquisition</h2>
+                  <h2>LAB 13: Analyze ICS data files using preferred lab gating strategy</h2>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endblock %}

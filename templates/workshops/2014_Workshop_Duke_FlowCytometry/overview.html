@@ -1,0 +1,46 @@
+{% extends "workshops/2014_Workshop_Duke_FlowCytometry/workshop_subbase.html" %}
+{% load url from future %}
+
+{% block body %}
+<script xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    document.getElementById("home-nav").className += " active";
+</script>
+    <div>
+      <img alt="" src="{{ STATIC_URL }}img/2014_Duke_FlowCytometry/hero.png" />
+    </div>
+    <div class="row main-block">
+      <div class="span12">
+        <div class="row">
+          <div class="span12 home-block hero-block-1">
+            <h1>Workshop Overview</h1>
+            <p>
+              The Duke CFAR Flow Cytometry Workshop is an intensive week-long
+              wet-workshop that includes lectures focusing on qualifying and
+              standardizing instruments and reagents.
+            </p>
+            <p>
+              No previous flow cytometry experience is required; however, the benefits
+              of attending the Workshop will be much greater with at least some basic
+              working knowledge about flow cytometry.
+            </p>
+            <p>
+              The goal of the workshop is two-fold:
+              <ol>
+                <li>
+                  Participants will be able to
+                  go home and perform the advanced 11-color ICS assay illustrated during the
+                  Workshop
+                </li>
+                <li>
+                  Participants will be able to apply the basic principles
+                  reviewed during the Workshop to modify the 11-color ICS assay to suite
+                  their laboratory needs.
+                </li>
+              </ol>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+{% endblock %}
