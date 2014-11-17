@@ -15,8 +15,14 @@
   vertical-align: middle;
 }
 
+.cfar-logo-main {
+  margin: 12px;
+  max-height: 128px;
+}
+
 .cfar-logo {
   margin: 12px;
+  max-height: 88px;
 }
 
 .header_text:hover {
